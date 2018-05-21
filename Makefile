@@ -16,16 +16,15 @@ export CC
 export FC
 export OPTIMIZE
 export CCFLAGS
+export CFLAGS
 export LNFLAGS
 export MASTER_DEFINEFLAGS
 export MAKE
 
 # everything in src/
 #===================
-AHF:	FORCE dirs
-	cd src;\
-	${MAKE} AHF;\
-	mv -f AHF ../bin/AHF-v1.0-094
+AHF: FORCE dirs
+	cd src; ${MAKE} AHF;
 
 
 # everything in convert/
