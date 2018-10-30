@@ -8,19 +8,22 @@
  * files.
  */
 
+
 /**********************************************************************\
- *    Includes                                                        *
+ *    Includes                                                        * 
 \**********************************************************************/
-#include "io_art_def.h"
 #include "io_art_header_def.h"
+#include "io_art_def.h"
 #include "io_logging.h"
 
-/**********************************************************************\
- *    Global defines, structure definitions and typedefs              *
-\**********************************************************************/
 
 /**********************************************************************\
- *    Prototypes of global functions                                  *
+ *    Global defines, structure definitions and typedefs              * 
+\**********************************************************************/
+
+
+/**********************************************************************\
+ *    Prototypes of global functions                                  * 
 \**********************************************************************/
 
 /**
@@ -36,7 +39,8 @@
  * \return A freshly filled header, or NULL, in case of memory
  *         problems.
  */
-extern io_art_header_t io_art_header_get(io_logging_t log, io_art_t f);
+extern io_art_header_t
+io_art_header_get(io_logging_t log, io_art_t f);
 
 /**
  * \brief This will delete a tipsy.header object.
@@ -47,7 +51,8 @@ extern io_art_header_t io_art_header_get(io_logging_t log, io_art_t f);
  *
  * \return Nothing.
  */
-extern void io_art_header_del(io_logging_t log, io_art_header_t *header);
+extern void
+io_art_header_del(io_logging_t log, io_art_header_t *header);
 
 /**
  * \brief Writes a header to the file.
@@ -58,8 +63,10 @@ extern void io_art_header_del(io_logging_t log, io_art_header_t *header);
  *
  * \return Nothing.
  */
-extern void io_art_header_write(io_logging_t log, io_art_header_t header,
-                                io_art_t f);
+extern void
+io_art_header_write(io_logging_t log,
+                       io_art_header_t header,
+                       io_art_t f);
 
 /**
  * \briefs Writes the header information to the logfile.
@@ -69,6 +76,8 @@ extern void io_art_header_write(io_logging_t log, io_art_header_t header,
  *
  * \return Nothing.
  */
-extern void io_art_header_log(io_logging_t log, io_art_header_t header);
+extern void
+io_art_header_log(io_logging_t log, io_art_header_t header);
+
 
 #endif /* IO_ART_HEADER_H */

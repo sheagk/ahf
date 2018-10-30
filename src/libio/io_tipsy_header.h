@@ -8,19 +8,22 @@
  * files.
  */
 
+
 /**********************************************************************\
- *    Includes                                                        *
+ *    Includes                                                        * 
 \**********************************************************************/
-#include "io_logging.h"
-#include "io_tipsy_def.h"
 #include "io_tipsy_header_def.h"
+#include "io_tipsy_def.h"
+#include "io_logging.h"
+
 
 /**********************************************************************\
- *    Global defines, structure definitions and typedefs              *
+ *    Global defines, structure definitions and typedefs              * 
 \**********************************************************************/
 
+
 /**********************************************************************\
- *    Prototypes of global functions                                  *
+ *    Prototypes of global functions                                  * 
 \**********************************************************************/
 
 /**
@@ -36,7 +39,8 @@
  * \return A freshly filled header, or NULL, in case of memory
  *         problems.
  */
-extern io_tipsy_header_t io_tipsy_header_get(io_logging_t log, io_tipsy_t f);
+extern io_tipsy_header_t
+io_tipsy_header_get(io_logging_t log, io_tipsy_t f);
 
 /**
  * \brief This will delete a tipsy.header object.
@@ -47,7 +51,8 @@ extern io_tipsy_header_t io_tipsy_header_get(io_logging_t log, io_tipsy_t f);
  *
  * \return Nothing.
  */
-extern void io_tipsy_header_del(io_logging_t log, io_tipsy_header_t *header);
+extern void
+io_tipsy_header_del(io_logging_t log, io_tipsy_header_t *header);
 
 /**
  * \brief Writes a header to the file.
@@ -58,8 +63,10 @@ extern void io_tipsy_header_del(io_logging_t log, io_tipsy_header_t *header);
  *
  * \return Nothing.
  */
-extern void io_tipsy_header_write(io_logging_t log, io_tipsy_header_t header,
-                                  io_tipsy_t f);
+extern void
+io_tipsy_header_write(io_logging_t log,
+                       io_tipsy_header_t header,
+                       io_tipsy_t f);
 
 /**
  * \briefs Writes the header information to the logfile.
@@ -69,6 +76,8 @@ extern void io_tipsy_header_write(io_logging_t log, io_tipsy_header_t header,
  *
  * \return Nothing.
  */
-extern void io_tipsy_header_log(io_logging_t log, io_tipsy_header_t header);
+extern void
+io_tipsy_header_log(io_logging_t log, io_tipsy_header_t header);
+
 
 #endif /* IO_TIPSY_HEADER_H */

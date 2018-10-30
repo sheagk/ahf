@@ -9,18 +9,20 @@
  * Provides functions for logging.
  */
 
+
 /***********************************************************************\
- *    Includes                                                         *
+ *    Includes                                                         * 
 \***********************************************************************/
-#include <stdarg.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdarg.h>
+
 
 /***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
+ *    Global defines, structure definitions and typedefs               * 
 \***********************************************************************/
 
-/**
+/** 
  * In MPI mode don't write a logfile unless this process is the master
  * thread.
  */
@@ -50,22 +52,22 @@
  * The logging object.
  */
 struct io_logging_struct {
-    /** Holds the logfile stream */
-    FILE *logfile;
-    /** Holds the filename of the logfile */
-    char *fname;
-    /** Holds the critical output stream */
-    FILE *critical;
-    /** Stores the verbosity */
-    int32_t verbosity;
-    /** Stores the flags */
-    int32_t flags;
-    /** Stores a counter for parts */
-    int32_t cnt_part;
-    /** Stores a counter for the sections */
-    int32_t cnt_sec;
-    /** Stores a counter for the subsections */
-    int32_t cnt_subsec;
+	/** Holds the logfile stream */
+	FILE *logfile;
+	/** Holds the filename of the logfile */
+	char *fname;
+	/** Holds the critical output stream */
+	FILE *critical;
+	/** Stores the verbosity */
+	int32_t verbosity;
+	/** Stores the flags */
+	int32_t flags;
+	/** Stores a counter for parts */
+	int32_t cnt_part;
+	/** Stores a counter for the sections */
+	int32_t cnt_sec;
+	/** Stores a counter for the subsections */
+	int32_t cnt_subsec;
 };
 
 /** Convenient typedef */
@@ -74,8 +76,9 @@ typedef struct io_logging_struct io_logging_struct_t;
 /** Convenient typedef */
 typedef io_logging_struct_t *io_logging_t;
 
+
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -95,8 +98,10 @@ typedef io_logging_struct_t *io_logging_t;
  *         calls to logging functions. This might be NULL if an error
  *         occured.
  */
-extern io_logging_t io_logging_start(char *stem, int32_t verbosity,
-                                     int32_t flags);
+extern io_logging_t
+io_logging_start(char *stem,
+                 int32_t verbosity,
+                 int32_t flags);
 
 /**
  * \brief Stops logging and disposes the logging structure.
@@ -108,7 +113,8 @@ extern io_logging_t io_logging_start(char *stem, int32_t verbosity,
  *
  * \return Nothing.
  */
-extern void io_logging_stop(io_logging_t *log);
+extern void
+io_logging_stop(io_logging_t *log);
 
 /**
  * \brief Starts a new numbered part in the logfile.
@@ -119,7 +125,10 @@ extern void io_logging_stop(io_logging_t *log);
  *
  * \return Nothing.
  */
-extern void io_logging_part(io_logging_t log, const char *frmt, ...);
+extern void
+io_logging_part(io_logging_t log,
+                const char *frmt,
+                ...);
 
 /**
  * \brief Starts a new numbered section in the logfile.
@@ -130,7 +139,10 @@ extern void io_logging_part(io_logging_t log, const char *frmt, ...);
  *
  * \return Nothing.
  */
-extern void io_logging_section(io_logging_t log, const char *frmt, ...);
+extern void
+io_logging_section(io_logging_t log,
+                   const char *frmt,
+                   ...);
 
 /**
  * \brief Starts a new numbered subsetion in the logfile.
@@ -141,7 +153,10 @@ extern void io_logging_section(io_logging_t log, const char *frmt, ...);
  *
  * \return Nothing.
  */
-extern void io_logging_subsection(io_logging_t log, const char *frmt, ...);
+extern void
+io_logging_subsection(io_logging_t log,
+                      const char *frmt,
+                      ...);
 
 /**
  * \brief Writes a greeting message to the log.
@@ -151,7 +166,8 @@ extern void io_logging_subsection(io_logging_t log, const char *frmt, ...);
  *
  * \return Nothing.
  */
-extern void io_logging_hello(io_logging_t log, float version, int build);
+extern void
+io_logging_hello(io_logging_t log, float version, int build);
 
 /**
  * \brief Writes an identification message of the library to the
@@ -161,7 +177,8 @@ extern void io_logging_hello(io_logging_t log, float version, int build);
  *
  * \return Nothing.
  */
-extern void io_logging_identify(io_logging_t log);
+extern void
+io_logging_identify(io_logging_t log);
 
 /**
  * \brief Writes a message to the logfile.
@@ -178,8 +195,11 @@ extern void io_logging_identify(io_logging_t log);
  *
  * \return Nothing.
  */
-extern void io_logging_msg(io_logging_t log, int32_t verbosity,
-                           const char *frmt, ...);
+extern void
+io_logging_msg(io_logging_t log,
+               int32_t verbosity,
+               const char *frmt,
+               ...);
 
 /**
  * \brief Writes a message to the logfile without adding anything.
@@ -191,8 +211,11 @@ extern void io_logging_msg(io_logging_t log, int32_t verbosity,
  *
  * \return Nothing.
  */
-extern void io_logging_msgplain(io_logging_t log, int32_t verbosity,
-                                const char *frmt, ...);
+extern void
+io_logging_msgplain(io_logging_t log,
+                    int32_t verbosity,
+                    const char *frmt,
+                    ...);
 
 /**
  * \brief Write a warning to the logfile.
@@ -207,8 +230,11 @@ extern void io_logging_msgplain(io_logging_t log, int32_t verbosity,
  *
  * \return Nothing.
  */
-extern void io_logging_warn(io_logging_t log, int32_t verbosity,
-                            const char *frmt, ...);
+extern void
+io_logging_warn(io_logging_t log,
+                int32_t verbosity,
+                const char *frmt,
+                ...);
 
 /**
  * \brief Writes a fatal message to the screen.
@@ -225,7 +251,10 @@ extern void io_logging_warn(io_logging_t log, int32_t verbosity,
  *
  * \return Nothing.
  */
-extern void io_logging_fatal(io_logging_t log, const char *frmt, ...);
+extern void
+io_logging_fatal(io_logging_t log,
+                 const char *frmt,
+                 ...);
 
 /**
  * \brief Writes a fatal message in the case of memory error.
@@ -241,7 +270,10 @@ extern void io_logging_fatal(io_logging_t log, const char *frmt, ...);
  *
  * \return Nothing.
  */
-extern void io_logging_memfatal(io_logging_t log, const char *frmt, ...);
+extern void
+io_logging_memfatal(io_logging_t log,
+                    const char *frmt,
+                    ...);
 
 /**
  * \brief Will flush the logfile stream.
@@ -250,6 +282,8 @@ extern void io_logging_memfatal(io_logging_t log, const char *frmt, ...);
  *
  * \return Nothing.
  */
-extern void io_logging_flush(io_logging_t log);
+extern void
+io_logging_flush(io_logging_t log);
+
 
 #endif /* IO_LOGGING_H */

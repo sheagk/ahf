@@ -9,16 +9,18 @@
  * Provides utility function for input/output operations.
  */
 
+
 /**********************************************************************\
- *    Includes                                                        *
+ *    Includes                                                        * 
 \**********************************************************************/
-#include <stdbool.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "io_file.h"
 
+
 /**********************************************************************\
- *    Global defines, structure definitions and typedefs              *
+ *    Global defines, structure definitions and typedefs              * 
 \**********************************************************************/
 
 /**
@@ -26,199 +28,200 @@
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readfloat(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(float), (b))
+#define io_util_readfloat(f,n,b) \
+  io_util_readbytes((f), (void *)(n), sizeof(float), (b))
 
 /**
  * \brief Reads a possibly byteswapped double from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readdouble(f, n, b)                                            \
-    io_util_readbytes((f), (void *)(n), sizeof(double), (b))
+#define io_util_readdouble(f,n,b) \
+  io_util_readbytes((f), (void *)(n), sizeof(double), (b))
 
 /**
  * \brief Reads a possibly byteswapped int from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readint(f, n, b)                                               \
-    io_util_readbytes((f), (void *)(n), sizeof(int), (b))
+#define io_util_readint(f,n,b) \
+  io_util_readbytes((f), (void *)(n), sizeof(int), (b))
 
 /**
  * \brief Reads a possibly byteswapped long from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readlong(f, n, b)                                              \
-    io_util_readbytes((f), (void *)(n), sizeof(long), (b))
+#define io_util_readlong(f,n,b) \
+  io_util_readbytes((f), (void *)(n), sizeof(long), (b))
 
 /**
  * \brief Reads a possibly byteswapped unsigned long from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readulong(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(unsigned long), (b))
+#define io_util_readulong(f,n,b) \
+  io_util_readbytes((f), (void *)(n), sizeof(unsigned long), (b))
 
 /**
  * \brief Reads a possibly byteswapped long long from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readlonglong(f, n, b)                                          \
-    io_util_readbytes((f), (void *)(n), sizeof(long long), (b))
+#define io_util_readlonglong(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(long long), (b))
 
 /**
  * \brief Reads a possibly byteswapped int8 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readint8(f, n, b)                                              \
-    io_util_readbytes((f), (void *)(n), sizeof(int8_t), (b))
+#define io_util_readint8(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(int8_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped int16 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readint16(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(int16_t), (b))
+#define io_util_readint16(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(int16_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped int32 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readint32(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(int32_t), (b))
+#define io_util_readint32(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(int32_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped int64 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readint64(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(int64_t), (b))
+#define io_util_readint64(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(int64_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped uint8 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readuint8(f, n, b)                                             \
-    io_util_readbytes((f), (void *)(n), sizeof(uint8_t), (b))
+#define io_util_readuint8(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(uint8_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped uint16 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readuint16(f, n, b)                                            \
-    io_util_readbytes((f), (void *)(n), sizeof(uint16_t), (b))
+#define io_util_readuint16(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(uint16_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped uint32 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readuint32(f, n, b)                                            \
-    io_util_readbytes((f), (void *)(n), sizeof(uint32_t), (b))
+#define io_util_readuint32(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(uint32_t), (b))
 
 /**
  * \brief Reads a possibly byteswapped uint64 from a stream
  *
  * \param f  The stream from which to read.
  * \param n  A pointer to the variabel which is supposed to hold the
- *           result.
+ *           result. 
  * \param b  A toggle to choose between byteswapped or
  *           non-byteswapped data.
  *
  * \return Returns 1 if the value could be read, 0 otherwise.
  */
-#define io_util_readuint64(f, n, b)                                            \
-    io_util_readbytes((f), (void *)(n), sizeof(uint64_t), (b))
+#define io_util_readuint64(f,n,b) \
+  io_util_readbytes((f), (void*)(n), sizeof(uint64_t), (b))
+
 
 /**********************************************************************\
- *    Prototypes of global functions                                  *
+ *    Prototypes of global functions                                  * 
 \**********************************************************************/
 
 /**
@@ -231,7 +234,8 @@
  *
  * \return Nothing.
  */
-extern void io_util_sexchange(void *p, size_t s);
+extern void
+io_util_sexchange(void *p, size_t s);
 
 /**
  * \brief Reads in a possibly byteswapped numerical value
@@ -239,12 +243,13 @@ extern void io_util_sexchange(void *p, size_t s);
  * \param *f    A pointer in the stream where the value starts
  * \param *n    A pointer to a variable supposed to hold the read value
  * \param len   The number of bytes to be read
- * \param swap  Toggles between swapped reading and unswapped
+ * \param swap  Toggles between swapped reading and unswapped 
  *              reading
  *
  * \return If the value could be read, 1 is returned, 0 otherwise.
  */
-extern int io_util_readbytes(FILE *f, void *n, size_t len, io_file_swap_t swap);
+extern int
+io_util_readbytes(FILE *f, void *n, size_t len, io_file_swap_t swap);
 
 /**
  * \brief Reads in a fixed length string.
@@ -259,11 +264,12 @@ extern int io_util_readbytes(FILE *f, void *n, size_t len, io_file_swap_t swap);
  *
  * \return  Returns the number of bytes read.
  */
-extern size_t io_util_readstring(FILE *f, char *s, size_t n);
+extern size_t
+io_util_readstring(FILE *f, char *s, size_t n);
 
 /**
  * \brief Reads in a fixed length string.
- *
+ * 
  * Like readstring, but will also stop at linebreaks.
  *
  * \param *f  The stream to read from.
@@ -276,7 +282,8 @@ extern size_t io_util_readstring(FILE *f, char *s, size_t n);
  *
  * \return  Returns the number of bytes read.
  */
-extern size_t io_util_readline(FILE *f, char *s, size_t n);
+extern size_t
+io_util_readline(FILE *f, char *s, size_t n);
 
 /**
  * \brief Function to replicate the behaviour of strdup which is
@@ -286,7 +293,8 @@ extern size_t io_util_readline(FILE *f, char *s, size_t n);
  *
  * \return Duplicated (including final \0) string.
  */
-extern char *io_util_strdup(const char *str);
+extern char *
+io_util_strdup(const char *str);
 
 /**
  * \brief Splits a string into a path and a filename part.
@@ -297,7 +305,8 @@ extern char *io_util_strdup(const char *str);
  *
  * \return Returns a pointer to the path or NULL in case of errors.
  */
-extern char *io_util_split_pathfname(const char *str, char **path, char **stem);
+extern char *
+io_util_split_pathfname(const char *str, char **path, char **stem);
 
 /**
  * \brief Finds all files in a given directory matching a given stem by
@@ -311,8 +320,12 @@ extern char *io_util_split_pathfname(const char *str, char **path, char **stem);
  *
  * \return Returns the number of files found.
  */
-extern int32_t io_util_findfiles(const char *path, const char *stem,
-                                 const char *format, const char *suffix,
-                                 char ***fnames);
+extern int32_t
+io_util_findfiles(const char *path,
+                  const char *stem,
+                  const char *format,
+                  const char *suffix,
+                  char ***fnames);
+
 
 #endif /* IO_UTIL_H */

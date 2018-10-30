@@ -7,25 +7,28 @@
  * Provides functions for reading and writing AMIGA files.
  */
 
-/***********************************************************************\
- *    Includes                                                         *
-\***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
 
-#include "io_amiga_def.h"
+/***********************************************************************\
+ *    Includes                                                         * 
+\***********************************************************************/
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "io_amiga_header_def.h"
+#include "io_amiga_def.h"
 #include "io_file.h"
 #include "io_file_aux.h"
 #include "io_logging.h"
 
-/***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
-\***********************************************************************/
 
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Global defines, structure definitions and typedefs               * 
+\***********************************************************************/
+
+
+/***********************************************************************\
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -51,9 +54,12 @@
  * \return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_amiga_t io_amiga_open(io_logging_t log, char *fname,
-                                io_file_swap_t swapped, io_file_mode_t mode,
-                                uint32_t reader);
+extern io_amiga_t
+io_amiga_open(io_logging_t log,
+              char *fname,
+              io_file_swap_t swapped,
+              io_file_mode_t mode,
+              uint32_t reader);
 
 /**
  * \brief This will close and finalize an AMIGA file.
@@ -64,7 +70,9 @@ extern io_amiga_t io_amiga_open(io_logging_t log, char *fname,
  *
  * \return Nothing.
  */
-extern void io_amiga_close(io_logging_t log, io_amiga_t *f);
+extern void
+io_amiga_close(io_logging_t log,
+               io_amiga_t *f);
 
 /**
  * \brief Initializes an opened for reading amiga file.
@@ -74,7 +82,9 @@ extern void io_amiga_close(io_logging_t log, io_amiga_t *f);
  *
  * \return Nothing.
  */
-extern void io_amiga_init(io_logging_t log, io_amiga_t f);
+extern void
+io_amiga_init(io_logging_t log,
+              io_amiga_t f);
 
 /**
  * \brief Reads from an opend amiga file all particle information.
@@ -99,9 +109,12 @@ extern void io_amiga_init(io_logging_t log, io_amiga_t f);
  *         went wrong. The calling function hence should check the
  *         return value.
  */
-extern uint64_t io_amiga_readpart(io_logging_t log, io_amiga_t f,
-                                  uint64_t pskip, uint64_t pread,
-                                  io_file_strg_struct_t strg);
+extern uint64_t
+io_amiga_readpart(io_logging_t log,
+                  io_amiga_t f,
+                  uint64_t pskip,
+                  uint64_t pread,
+                  io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to an AMIGA binary file
@@ -119,9 +132,12 @@ extern uint64_t io_amiga_readpart(io_logging_t log, io_amiga_t f,
  *         should correspond to the number of particles given in the
  *         header.
  */
-extern uint64_t io_amiga_writepart(io_logging_t log, io_amiga_t f,
-                                   uint64_t pskip, uint64_t pwrite,
-                                   io_file_strg_struct_t strg);
+extern uint64_t
+io_amiga_writepart(io_logging_t log,
+                   io_amiga_t f,
+                   uint64_t pskip,
+                   uint64_t pwrite,
+                   io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to an AMIGA binary file in an ordered
@@ -142,10 +158,13 @@ extern uint64_t io_amiga_writepart(io_logging_t log, io_amiga_t f,
  *         should correspond to the number of particles given in the
  *         header.
  */
-extern uint64_t io_amiga_writepart_ord(io_logging_t log, io_amiga_t f,
-                                       uint64_t pskip, uint64_t pwrite,
-                                       void *nxt_part,
-                                       io_file_strg_struct_t strg);
+extern uint64_t
+io_amiga_writepart_ord(io_logging_t log,
+                       io_amiga_t f,
+                       uint64_t pskip,
+                       uint64_t pwrite,
+                       void *nxt_part,
+                       io_file_strg_struct_t strg);
 
 /**
  * \brief Generic get-function to retrieve things from the file header.
@@ -157,8 +176,11 @@ extern uint64_t io_amiga_writepart_ord(io_logging_t log, io_amiga_t f,
  *
  * \return True if the parameter could be read, false if not.
  */
-extern bool io_amiga_get(io_logging_t log, io_amiga_t f, io_file_get_t what,
-                         void *res);
+extern bool
+io_amiga_get(io_logging_t log,
+             io_amiga_t f,
+             io_file_get_t what,
+             void *res);
 
 /**
  * \brief Generic get-function to set things in the file header.
@@ -170,8 +192,11 @@ extern bool io_amiga_get(io_logging_t log, io_amiga_t f, io_file_get_t what,
  *
  * \return True if the parameter could be set, false if not.
  */
-extern bool io_amiga_set(io_logging_t log, io_amiga_t f, io_file_get_t what,
-                         void *res);
+extern bool
+io_amiga_set(io_logging_t log,
+             io_amiga_t f,
+             io_file_get_t what,
+             void *res);
 
 /**
  * \brief Writes the file information to the logfile.
@@ -181,6 +206,8 @@ extern bool io_amiga_set(io_logging_t log, io_amiga_t f, io_file_get_t what,
  *
  * \return Nothing.
  */
-extern void io_amiga_log(io_logging_t log, io_amiga_t f);
+extern void
+io_amiga_log(io_logging_t log, io_amiga_t f);
+
 
 #endif /* IO_AMIGA_H */

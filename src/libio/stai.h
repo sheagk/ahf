@@ -5,6 +5,7 @@
 #ifndef STAI_H
 #define STAI_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -14,15 +15,18 @@
  *         array interface, stai).
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
-#include <stdbool.h>
 #include <stdint.h>
+#include <stdbool.h>
+
 
 /*--- ADT handle --------------------------------------------------------*/
 
 /** @brief  The handle for the stai object. */
 typedef struct stai_struct *stai_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -50,8 +54,11 @@ typedef struct stai_struct *stai_t;
  * @return  Returns a new stai object for the provided array
  *          specifications.
  */
-extern stai_t stai_new(void *base, unsigned int sizeOfElementInBytes,
-                       unsigned int strideInBytes);
+extern stai_t
+stai_new(void         *base,
+         unsigned int sizeOfElementInBytes,
+         unsigned int strideInBytes);
+
 
 /**
  * @brief  Creates a new stai object from a provided one with a
@@ -68,7 +75,9 @@ extern stai_t stai_new(void *base, unsigned int sizeOfElementInBytes,
  *          properties as the provided stai object, but differs in the
  *          base object.
  */
-extern stai_t stai_cloneWithDifferentBase(const stai_t stai, void *newBase);
+extern stai_t
+stai_cloneWithDifferentBase(const stai_t stai, void *newBase);
+
 
 /**
  * @brief  Deletes a stai object and frees the associated memory.
@@ -81,7 +90,9 @@ extern stai_t stai_cloneWithDifferentBase(const stai_t stai, void *newBase);
  *
  * @return  Returns nothing.
  */
-extern void stai_del(stai_t *stai);
+extern void
+stai_del(stai_t *stai);
+
 
 /** @} */
 
@@ -100,7 +111,8 @@ extern void stai_del(stai_t *stai);
  *
  * @return  Returns the base of the stai.
  */
-extern void *stai_getBase(const stai_t stai);
+extern void *
+stai_getBase(const stai_t stai);
 
 /**
  * @brief  Retrievs the size of one element.
@@ -111,7 +123,8 @@ extern void *stai_getBase(const stai_t stai);
  *
  * @return  Returns size of one element in bytes.
  */
-extern int stai_getSizeOfElementInBytes(const stai_t stai);
+extern int
+stai_getSizeOfElementInBytes(const stai_t stai);
 
 /**
  * @brief  Retrievs the stride of the stai.
@@ -122,7 +135,8 @@ extern int stai_getSizeOfElementInBytes(const stai_t stai);
  *
  * @return  Returns the stride of the stai in bytes.
  */
-extern int stai_getStrideInBytes(const stai_t stai);
+extern int
+stai_getStrideInBytes(const stai_t stai);
 
 /** @} */
 
@@ -149,8 +163,9 @@ extern int stai_getStrideInBytes(const stai_t stai);
  *
  * @return  Returns nothing.
  */
-extern void stai_setElement(const stai_t stai, uint64_t pos,
-                            const void *element);
+extern void
+stai_setElement(const stai_t stai, uint64_t pos, const void *element);
+
 
 /**
  * @brief  Sets multiple consecutive elements of an stai.
@@ -180,8 +195,11 @@ extern void stai_setElement(const stai_t stai, uint64_t pos,
  *
  * @return  Returns nothing.
  */
-extern void stai_setElementsMulti(const stai_t stai, uint64_t pos,
-                                  const void *elements, uint64_t numElements);
+extern void
+stai_setElementsMulti(const stai_t stai,
+                      uint64_t     pos,
+                      const void   *elements,
+                      uint64_t     numElements);
 
 /**
  * @brief  Gets an element form the stai.
@@ -204,7 +222,8 @@ extern void stai_setElementsMulti(const stai_t stai, uint64_t pos,
  *
  * @return  Returns nothing.
  */
-extern void stai_getElement(const stai_t stai, uint64_t pos, void *element);
+extern void
+stai_getElement(const stai_t stai, uint64_t pos, void *element);
 
 /**
  * @brief  Gets multiple consecutive elements from a stai.
@@ -232,8 +251,11 @@ extern void stai_getElement(const stai_t stai, uint64_t pos, void *element);
  *
  * @return  Returns nothing.
  */
-extern void stai_getElementsMulti(const stai_t stai, uint64_t pos,
-                                  void *elements, uint64_t numElements);
+extern void
+stai_getElementsMulti(const stai_t stai,
+                      uint64_t     pos,
+                      void         *elements,
+                      uint64_t     numElements);
 
 /**
  * @brief  This allows to move the base of the stai.
@@ -251,9 +273,12 @@ extern void stai_getElementsMulti(const stai_t stai, uint64_t pos,
  *
  * @return  Returns nothing.
  */
-extern void stai_rebase(stai_t stai, int64_t offset);
+extern void
+stai_rebase(stai_t stai, int64_t offset);
+
 
 /** @} */
+
 
 /**
  * @name  Tests
@@ -274,9 +299,12 @@ extern void stai_rebase(stai_t stai, int64_t offset);
  * @return  Returns true if the stai describes a linear array and false
  *          if not.
  */
-extern bool stai_isLinear(const stai_t stai);
+extern bool
+stai_isLinear(const stai_t stai);
 
 /** @} */
+
+
 
 /*--- Doxygen group definitions -----------------------------------------*/
 
@@ -285,5 +313,6 @@ extern bool stai_isLinear(const stai_t stai);
  * @ingroup libutilMisc
  * @brief Provides the interface for stridden arrays.
  */
+
 
 #endif

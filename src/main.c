@@ -812,6 +812,22 @@ local_focusSphere(void)
 	global_info.fst_part = newParts;
 	global_info.no_part  = newNumPart;
 	fprintf(stderr,"ended with %ld particles\n\n",global_info.no_part);
+  
+  
+  {
+    FILE *fp;
+    
+    fp = fopen("AHFrsphere.txt","w");
+    for(i=0; i<global_info.no_part; i++) {
+      fprintf(fp,"%g %g %g %g\n",
+              global_info.fst_part[i].pos[X]*simu.boxsize,
+              global_info.fst_part[i].pos[Y]*simu.boxsize,
+              global_info.fst_part[i].pos[Z]*simu.boxsize,
+              global_info.fst_part[i].u);
+    }
+    fclose(fp);
+    exit(0);
+  }
 }
 #endif
 

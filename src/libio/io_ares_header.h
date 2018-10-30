@@ -10,19 +10,22 @@
  * files.
  */
 
+
 /**********************************************************************\
- *    Includes                                                        *
+ *    Includes                                                        * 
 \**********************************************************************/
-#include "io_ares_def.h"
 #include "io_ares_header_def.h"
+#include "io_ares_def.h"
 #include "io_logging.h"
 
-/**********************************************************************\
- *    Global defines, structure definitions and typedefs              *
-\**********************************************************************/
 
 /**********************************************************************\
- *    Prototypes of global functions                                  *
+ *    Global defines, structure definitions and typedefs              * 
+\**********************************************************************/
+
+
+/**********************************************************************\
+ *    Prototypes of global functions                                  * 
 \**********************************************************************/
 
 /**
@@ -38,7 +41,8 @@
  * \return A freshly filled header, or NULL, in case of memory
  *         problems.
  */
-extern io_ares_header_t io_ares_header_get(io_logging_t log, io_ares_t f);
+extern io_ares_header_t
+io_ares_header_get(io_logging_t log, io_ares_t f);
 
 /**
  * \brief Generates an empty header object.
@@ -48,7 +52,8 @@ extern io_ares_header_t io_ares_header_get(io_logging_t log, io_ares_t f);
  * \return A freshly allocated header, or NULL, in case of memory
  *         problems.
  */
-extern io_ares_header_t io_ares_header_new(io_logging_t log);
+extern io_ares_header_t
+io_ares_header_new(io_logging_t log);
 
 /**
  * \brief This will delete an ares_header object.
@@ -59,7 +64,8 @@ extern io_ares_header_t io_ares_header_new(io_logging_t log);
  *
  * \return Nothing.
  */
-extern void io_ares_header_del(io_logging_t log, io_ares_header_t *header);
+extern void
+io_ares_header_del(io_logging_t log, io_ares_header_t *header);
 
 /**
  * \brief Writes the header to the file
@@ -70,8 +76,10 @@ extern void io_ares_header_del(io_logging_t log, io_ares_header_t *header);
  *
  * \return Nothing.
  */
-extern void io_ares_header_write(io_logging_t log, io_ares_header_t header,
-                                 io_ares_t f);
+extern void
+io_ares_header_write(io_logging_t log,
+                     io_ares_header_t header,
+                     io_ares_t f);
 
 /**
  * \briefs Writes the header information to the logfile.
@@ -81,6 +89,8 @@ extern void io_ares_header_write(io_logging_t log, io_ares_header_t header,
  *
  * \return Nothing.
  */
-extern void io_ares_header_log(io_logging_t log, io_ares_header_t header);
+extern void
+io_ares_header_log(io_logging_t log, io_ares_header_t header);
+
 
 #endif /* IO_ARES_HEADER_H */

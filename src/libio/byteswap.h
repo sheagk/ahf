@@ -5,6 +5,7 @@
 #ifndef BYTESWAP_H
 #define BYTESWAP_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,9 +14,11 @@
  * @brief  This file provides a function for byte-swapping.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
 #include <stdlib.h>
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -33,6 +36,8 @@
  *
  * @return  Returns nothing.
  */
-extern void byteswap(void *p, size_t s);
+extern void
+byteswap(void *p, size_t s);
+
 
 #endif

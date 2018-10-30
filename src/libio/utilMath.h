@@ -5,6 +5,7 @@
 #ifndef UTILMATH_H
 #define UTILMATH_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,8 +14,10 @@
  * @brief This file defines useful mathematical constants.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
+
 
 /*--- Exported defines --------------------------------------------------*/
 
@@ -72,11 +75,14 @@
 //! This is 1/sqrt(2) in long double
 #define M_SQRT1_2l 0.7071067811865475244008443621048490L
 
+
 /*--- Exported Macros ---------------------------------------------------*/
 #define POW2(a) ((a) * (a))
 #define POW3(a) ((a) * (a) * (a))
 #define POW4(a) ((a) * (a) * (a) * (a))
 
+
 /*--- Prototypes of exported functions ----------------------------------*/
+
 
 #endif

@@ -2,6 +2,7 @@
 // Released under the terms of the GNU General Public License version 3.
 // This file is part of `voelva'.
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -10,22 +11,25 @@
  * @brief  This file provides the implementation of the ART file object.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
+#include "util_config.h"
 #include "art.h"
 #include "artHeader.h"
+#include <assert.h>
+#include <string.h>
+#include <inttypes.h>
+#include "xmem.h"
+#include "xfile.h"
+#include "xstring.h"
+#include "stai.h"
 #include "byteswap.h"
 #include "diediedie.h"
-#include "stai.h"
-#include "util_config.h"
-#include "xfile.h"
-#include "xmem.h"
-#include "xstring.h"
-#include <assert.h>
-#include <inttypes.h>
-#include <string.h>
+
 
 /*--- Implementation of main structure ----------------------------------*/
 #include "art_adt.h"
+
 
 /*--- Local defines -----------------------------------------------------*/
 
@@ -61,6 +65,7 @@
  */
 #define ART_SIZEOF_PARTICLE 24
 
+
 /*--- Prototypes of local functions -------------------------------------*/
 
 /**
@@ -73,8 +78,10 @@
  *
  * @return  Returns pathToFile + PMcrd + fileNameSuffix.
  */
-static char *local_createFileNameHeader(const char *pathToFiles,
-                                        const char *fileNameSuffix);
+static char *
+local_createFileNameHeader(const char *pathToFiles,
+                           const char *fileNameSuffix);
+
 
 /**
  * @brief  Creates an array holding all of the PMcrsX.DAT file names.
@@ -89,9 +96,11 @@ static char *local_createFileNameHeader(const char *pathToFiles,
  * @return  Returns an array of length numFiles containing the file
  *          names of the PMcrsX.DAT files.
  */
-static char **local_createFileNamesData(const char *pathToFiles,
-                                        const char *fileNameSuffix,
-                                        int numFiles);
+static char **
+local_createFileNamesData(const char *pathToFiles,
+                          const char *fileNameSuffix,
+                          int        numFiles);
+
 
 /**
  * @brief  Creates the file stem from a path and the first part of the
@@ -108,7 +117,9 @@ static char **local_createFileNamesData(const char *pathToFiles,
  *          depending on whether path is a proper path or is missing the
  *          trailing '/'.
  */
-static char *local_getFileStem(const char *path, const char *fileNameStart);
+static char *
+local_getFileStem(const char *path, const char *fileNameStart);
+
 
 /**
  * @brief  Makes sure that a string ends with '/'.
@@ -118,7 +129,9 @@ static char *local_getFileStem(const char *path, const char *fileNameStart);
  *
  * @return  Returns either path or path + '/'.
  */
-static char *local_getProperPath(const char *path);
+static char *
+local_getProperPath(const char *path);
+
 
 /**
  * @brief  Updates the numbers for the structure of the file(s).
@@ -132,7 +145,9 @@ static char *local_getProperPath(const char *path);
  *
  * @return  Returns nothing.
  */
-static void local_updateNumbers(art_t art);
+static void
+local_updateNumbers(art_t art);
+
 
 /**
  * @brief  Writes one component to a page.
@@ -171,8 +186,13 @@ static void local_updateNumbers(art_t art);
  *
  * @return  Returns nothing.
  */
-static void local_writeComponent(art_t art, uint64_t pSkip, uint64_t pWrite,
-                                 stai_t component, bool doByteswap);
+static void
+local_writeComponent(art_t    art,
+                     uint64_t pSkip,
+                     uint64_t pWrite,
+                     stai_t   component,
+                     bool     doByteswap);
+
 
 /**
  * @brief  This reads a component from a page.
@@ -225,8 +245,13 @@ static void local_writeComponent(art_t art, uint64_t pSkip, uint64_t pWrite,
  *
  * @return Returns nothing.
  */
-static void local_readComponent(art_t art, uint64_t pSkip, uint64_t pRead,
-                                stai_t component, bool doByteswap);
+static void
+local_readComponent(art_t    art,
+                    uint64_t pSkip,
+                    uint64_t pRead,
+                    stai_t   component,
+                    bool     doByteswap);
+
 
 /**
  * @brief  Fills a buffer from a component array.
@@ -247,7 +272,9 @@ static void local_readComponent(art_t art, uint64_t pSkip, uint64_t pRead,
  *
  * @return  Returns nothing.
  */
-static void local_fillBufferFromStai(float *buffer, stai_t stai, int numValues);
+static void
+local_fillBufferFromStai(float *buffer, stai_t stai, int numValues);
+
 
 /**
  * @brief  Copies the values in a buffer array into a stai.
@@ -265,8 +292,9 @@ static void local_fillBufferFromStai(float *buffer, stai_t stai, int numValues);
  * @param[in]      numValues
  *                    The number of values to copy.
  */
-static void local_copyBufferToStai(const float *buffer, stai_t stai,
-                                   int numValues);
+static void
+local_copyBufferToStai(const float *buffer, stai_t stai, int numValues);
+
 
 /**
  * @brief  Seeks to a given page in the file.
@@ -280,7 +308,8 @@ static void local_copyBufferToStai(const float *buffer, stai_t stai,
  *                    need to exist, but all pages before that are
  *                    required to exist.
  */
-static void local_seekToPage(art_t art, int pageNumber);
+static void
+local_seekToPage(art_t art, int pageNumber);
 
 /**
  * @brief  Resets the base of the data stais.
@@ -300,7 +329,8 @@ static void local_seekToPage(art_t art, int pageNumber);
  *
  * @return  Returns nothing.
  */
-inline static void local_rebaseStaisData(stai_t *data, int64_t offsetElements);
+inline static void
+local_rebaseStaisData(stai_t *data, int64_t offsetElements);
 
 /**
  * @brief  Helper function to set the first/last file/page depending on
@@ -324,8 +354,13 @@ inline static void local_rebaseStaisData(stai_t *data, int64_t offsetElements);
  *
  * @return  Returns nothing.
  */
-static void local_calcFirstLast(int normalizer, int largest, uint64_t pSkip,
-                                uint64_t pAct, int *first, int *last);
+static void
+local_calcFirstLast(int      normalizer,
+                    int      largest,
+                    uint64_t pSkip,
+                    uint64_t pAct,
+                    int      *first,
+                    int      *last);
 
 /**
  * @brief  Adjust the skip and act value to conform with a limited
@@ -357,8 +392,12 @@ static void local_calcFirstLast(int normalizer, int largest, uint64_t pSkip,
  *
  * @return  Return nothing.
  */
-static void local_calcSkipAct(int normalizer, uint64_t pSkip, uint64_t pAct,
-                              uint64_t *pSkipCalc, uint64_t *pActCalc);
+static void
+local_calcSkipAct(int      normalizer,
+                  uint64_t pSkip,
+                  uint64_t pAct,
+                  uint64_t *pSkipCalc,
+                  uint64_t *pActCalc);
 
 /**
  * @brief  Calculates how many digits an integer value has.
@@ -369,658 +408,758 @@ static void local_calcSkipAct(int normalizer, uint64_t pSkip, uint64_t pAct,
  * @return  Returns the number of digits, but not more than
  *          #ART_MAX_FILEDIGITS.
  */
-static int local_getRequiredDigits(int numFiles);
+static int
+local_getRequiredDigits(int numFiles);
+
 
 /*--- Implementations of exported functions -----------------------------*/
-extern art_t art_new(const char *pathToFiles, const char *fileNameSuffix,
-                     int numFiles) {
-    art_t art;
+extern art_t
+art_new(const char *pathToFiles, const char *fileNameSuffix, int numFiles)
+{
+	art_t art;
 
-    assert(numFiles > 0 && numFiles < ART_MAX_NUMFILES);
+	assert(numFiles > 0 && numFiles < ART_MAX_NUMFILES);
 
-    art = xmalloc(sizeof(struct art_struct));
-    art->fileNameHeader =
-        local_createFileNameHeader(pathToFiles, fileNameSuffix);
-    art->fileNamesData =
-        local_createFileNamesData(pathToFiles, fileNameSuffix, numFiles);
-    art->numFiles = numFiles;
-    art->truncateNrowc = true;
-    art->f = NULL;
-    art->mode = ART_MODE_READ;
-    art->lastOpened = -1;
-    art->header = NULL;
-    art->numTotalPages = -1;
-    art->numPagesInFile = -1;
-    art->numPagesInLastFile = -1;
-    art->numParticlesInPage = -1;
-    art->numParticlesInLastPage = -1;
-    art->numParticlesInFile = -1;
-    art->numParticlesInLastFile = -1;
-    art->numPagesInThisFile = -1;
-    art->numParticlesInThisFile = -1;
+	art                 = xmalloc(sizeof(struct art_struct));
+	art->fileNameHeader = local_createFileNameHeader(pathToFiles,
+	                                                 fileNameSuffix);
+	art->fileNamesData  = local_createFileNamesData(pathToFiles,
+	                                                fileNameSuffix,
+	                                                numFiles);
+	art->numFiles               = numFiles;
+	art->truncateNrowc          = true;
+	art->f                      = NULL;
+	art->mode                   = ART_MODE_READ;
+	art->lastOpened             = -1;
+	art->header                 = NULL;
+	art->numTotalPages          = -1;
+	art->numPagesInFile         = -1;
+	art->numPagesInLastFile     = -1;
+	art->numParticlesInPage     = -1;
+	art->numParticlesInLastPage = -1;
+	art->numParticlesInFile     = -1;
+	art->numParticlesInLastFile = -1;
+	art->numPagesInThisFile     = -1;
+	art->numParticlesInThisFile = -1;
 
-    return art;
+	return art;
 }
 
-extern void art_del(art_t *art) {
-    assert(art != NULL && *art != NULL);
+extern void
+art_del(art_t *art)
+{
+	assert(art != NULL && *art != NULL);
 
-    if ((*art)->header != NULL)
-        artHeader_del(&((*art)->header));
-    art_close(*art);
-    if ((*art)->fileNamesData != NULL) {
-        for (int i = 0; i < (*art)->numFiles; i++) {
-            if ((*art)->fileNamesData[i] != NULL)
-                xfree((*art)->fileNamesData[i]);
-        }
-        xfree((*art)->fileNamesData);
-    }
-    if ((*art)->fileNameHeader != NULL)
-        xfree((*art)->fileNameHeader);
+	if ((*art)->header != NULL)
+		artHeader_del(&((*art)->header));
+	art_close(*art);
+	if ((*art)->fileNamesData != NULL) {
+		for (int i = 0; i < (*art)->numFiles; i++) {
+			if ((*art)->fileNamesData[i] != NULL)
+				xfree((*art)->fileNamesData[i]);
+		}
+		xfree((*art)->fileNamesData);
+	}
+	if ((*art)->fileNameHeader != NULL)
+		xfree((*art)->fileNameHeader);
 
-    xfree(*art);
-    art = NULL;
+	xfree(*art);
+	art = NULL;
 }
 
-extern void art_setTruncateNrowc(art_t art, bool value) {
-    assert(art != NULL);
+extern void
+art_setTruncateNrowc(art_t art, bool value)
+{
+	assert(art != NULL);
 
-    art->truncateNrowc = value;
-    if (art->header != NULL)
-        local_updateNumbers(art);
+	art->truncateNrowc = value;
+	if (art->header != NULL)
+		local_updateNumbers(art);
 }
 
-extern int art_getNumFiles(const art_t art) {
-    assert(art != NULL);
+extern int
+art_getNumFiles(const art_t art)
+{
+	assert(art != NULL);
 
-    return art->numFiles;
+	return art->numFiles;
 }
 
-extern bool art_getTruncateNrowc(const art_t art) {
-    assert(art != NULL);
+extern bool
+art_getTruncateNrowc(const art_t art)
+{
+	assert(art != NULL);
 
-    return art->truncateNrowc;
+	return art->truncateNrowc;
 }
 
-extern const char *art_getHeaderFileName(const art_t art) {
-    assert(art != NULL);
+extern const char *
+art_getHeaderFileName(const art_t art)
+{
+	assert(art != NULL);
 
-    return art->fileNameHeader;
+	return art->fileNameHeader;
 }
 
-extern const char *art_getDataFileName(const art_t art, int numFile) {
-    assert(art != NULL);
-    assert(numFile >= 0 && numFile < art->numFiles);
+extern const char *
+art_getDataFileName(const art_t art, int numFile)
+{
+	assert(art != NULL);
+	assert(numFile >= 0 && numFile < art->numFiles);
 
-    return art->fileNamesData[numFile];
+	return art->fileNamesData[numFile];
 }
 
-extern artHeader_t art_getHeaderHandle(const art_t art) {
-    assert(art != NULL);
+extern artHeader_t
+art_getHeaderHandle(const art_t art)
+{
+	assert(art != NULL);
 
-    return art->header;
+	return art->header;
 }
 
-extern void art_attachHeader(art_t art, artHeader_t header) {
-    assert(art != NULL);
-    assert(header != NULL);
+extern void
+art_attachHeader(art_t art, artHeader_t header)
+{
+	assert(art != NULL);
+	assert(header != NULL);
 
-    if (art->header != NULL)
-        artHeader_del(&(art->header));
-    art->header = header;
+	if (art->header != NULL)
+		artHeader_del(&(art->header));
+	art->header = header;
 
-    local_updateNumbers(art);
+	local_updateNumbers(art);
 }
 
-extern void art_attachHeaderFromFile(art_t art) {
-    artHeader_t header;
+extern void
+art_attachHeaderFromFile(art_t art)
+{
+	artHeader_t header;
 
-    assert(art != NULL);
-    assert(art->fileNameHeader != NULL);
+	assert(art != NULL);
+	assert(art->fileNameHeader != NULL);
 
-    header = artHeader_newFromFile(art->fileNameHeader);
+	header = artHeader_newFromFile(art->fileNameHeader);
 
-    art_attachHeader(art, header);
+	art_attachHeader(art, header);
 }
 
-extern void art_open(art_t art, artMode_t mode, int numFile) {
-    assert(art != NULL);
-    assert(numFile >= 0 && numFile < art->numFiles);
+extern void
+art_open(art_t art, artMode_t mode, int numFile)
+{
+	assert(art != NULL);
+	assert(numFile >= 0 && numFile < art->numFiles);
 
-    if (art->f != NULL) {
-        if ((art->lastOpened != numFile) || (mode != art->mode))
-            xfclose(&(art->f));
-        else if ((art->lastOpened == numFile) && (mode == art->mode)) {
-            rewind(art->f);
-            return;
-        }
-    }
+	if (art->f != NULL) {
+		if ((art->lastOpened != numFile) || (mode != art->mode))
+			xfclose(&(art->f));
+		else if ((art->lastOpened == numFile) && (mode == art->mode)) {
+			rewind(art->f);
+			return;
+		}
+	}
 
-    art->mode = mode;
-    if (art->mode == ART_MODE_READ) {
-        art->f = xfopen(art->fileNamesData[numFile], "rb");
-    } else if (art->mode == ART_MODE_WRITE) {
-        art->f = xfopen(art->fileNamesData[numFile], "r+b");
-    } else {
-        diediedie(EXIT_FAILURE);
-    }
+	art->mode = mode;
+	if (art->mode == ART_MODE_READ) {
+		art->f = xfopen(art->fileNamesData[numFile], "rb");
+	} else if (art->mode == ART_MODE_WRITE) {
+		art->f = xfopen(art->fileNamesData[numFile], "r+b");
+	} else {
+		diediedie(EXIT_FAILURE);
+	}
 
-    art->lastOpened = numFile;
-    art->numPagesInThisFile = (numFile == art->numFiles - 1)
-                                  ? art->numParticlesInLastPage
-                                  : art->numParticlesInPage;
-    art->numParticlesInThisFile = (numFile == art->numFiles - 1)
-                                      ? art->numParticlesInLastFile
-                                      : art->numParticlesInFile;
+	art->lastOpened         = numFile;
+	art->numPagesInThisFile = (numFile == art->numFiles - 1)
+	                          ? art->numParticlesInLastPage
+							  : art->numParticlesInPage;
+	art->numParticlesInThisFile = (numFile == art->numFiles - 1)
+	                              ? art->numParticlesInLastFile
+								  : art->numParticlesInFile;
 }
 
-extern void art_createEmptyFile(const art_t art, int numFile) {
-    size_t numPagesTotal;
+extern void
+art_createEmptyFile(const art_t art, int numFile)
+{
+	size_t numPagesTotal;
 
-    assert(art != NULL);
-    assert(numFile < art->numFiles);
+	assert(art != NULL);
+	assert(numFile < art->numFiles);
 
-    if (numFile == art->numFiles - 1)
-        numPagesTotal = art->numPagesInLastFile;
-    else
-        numPagesTotal = art->numPagesInFile;
+	if (numFile == art->numFiles - 1)
+		numPagesTotal = art->numPagesInLastFile;
+	else
+		numPagesTotal = art->numPagesInFile;
 
-    xfile_createFileWithSize(art->fileNamesData[numFile],
-                             (size_t)art->numParticlesInPage *
-                                 (size_t)ART_SIZEOF_PARTICLE * numPagesTotal);
+	xfile_createFileWithSize(art->fileNamesData[numFile],
+	                         (size_t)art->numParticlesInPage
+	                         * (size_t)ART_SIZEOF_PARTICLE
+	                         * numPagesTotal);
 }
 
-extern void art_close(art_t art) {
-    assert(art != NULL);
+extern void
+art_close(art_t art)
+{
+	assert(art != NULL);
 
-    if (art->f != NULL)
-        xfclose(&(art->f));
-    art->numPagesInThisFile = -1;
-    art->numParticlesInThisFile = -1;
+	if (art->f != NULL)
+		xfclose(&(art->f));
+	art->numPagesInThisFile     = -1;
+	art->numParticlesInThisFile = -1;
 }
 
-extern uint64_t art_writeToPage(art_t art, int pageNumber, uint64_t pSkip,
-                                uint64_t pWrite, stai_t *data) {
-    bool doByteswap = false;
-    endian_t systemEndianess = endian_getSystemEndianess();
+extern uint64_t
+art_writeToPage(art_t    art,
+                int      pageNumber,
+                uint64_t pSkip,
+                uint64_t pWrite,
+                stai_t   *data)
+{
+	bool     doByteswap      = false;
+	endian_t systemEndianess = endian_getSystemEndianess();
 
-    assert(art != NULL);
-    assert(art->f != NULL);
-    assert(art->mode == ART_MODE_WRITE);
-    assert(pageNumber < art->numPagesInThisFile);
+	assert(art != NULL);
+	assert(art->f != NULL);
+	assert(art->mode == ART_MODE_WRITE);
+	assert(pageNumber < art->numPagesInThisFile);
 
-    local_seekToPage(art, pageNumber);
+	local_seekToPage(art, pageNumber);
 
-    if (systemEndianess != artHeader_getFileEndianess(art->header))
-        doByteswap = true;
+	if (systemEndianess != artHeader_getFileEndianess(art->header))
+		doByteswap = true;
 
-    local_writeComponent(art, pSkip, pWrite, data[0], doByteswap);
-    local_writeComponent(art, pSkip, pWrite, data[1], doByteswap);
-    local_writeComponent(art, pSkip, pWrite, data[2], doByteswap);
-    local_writeComponent(art, pSkip, pWrite, data[3], doByteswap);
-    local_writeComponent(art, pSkip, pWrite, data[4], doByteswap);
-    local_writeComponent(art, pSkip, pWrite, data[5], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[0], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[1], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[2], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[3], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[4], doByteswap);
+	local_writeComponent(art, pSkip, pWrite, data[5], doByteswap);
 
-    return pWrite;
+	return pWrite;
 }
 
-extern uint64_t art_writeToFile(art_t art, int fileNumber, uint64_t pSkip,
-                                uint64_t pWrite, stai_t *data) {
-    bool wasOpened;
-    uint64_t numPartsWriteTotal = UINT64_C(0);
-    int firstPage, lastPage;
+extern uint64_t
+art_writeToFile(art_t    art,
+                int      fileNumber,
+                uint64_t pSkip,
+                uint64_t pWrite,
+                stai_t   *data)
+{
+	bool     wasOpened;
+	uint64_t numPartsWriteTotal = UINT64_C(0);
+	int      firstPage, lastPage;
 
-    wasOpened = (art->f == NULL) ? false : true;
-    art_open(art, ART_MODE_WRITE, fileNumber);
+	wasOpened = (art->f == NULL) ? false : true;
+	art_open(art, ART_MODE_WRITE, fileNumber);
 
-    local_calcFirstLast(art->numParticlesInPage, art->numPagesInThisFile, pSkip,
-                        pWrite, &firstPage, &lastPage);
-    pSkip -= ((uint64_t)firstPage) * art->numParticlesInPage;
+	local_calcFirstLast(art->numParticlesInPage, art->numPagesInThisFile,
+	                    pSkip, pWrite, &firstPage, &lastPage);
+	pSkip -= ((uint64_t)firstPage) * art->numParticlesInPage;
 
-    for (int i = firstPage; i <= lastPage; i++) {
-        uint64_t pSkipPage, pWritePage, actualWrite;
+	for (int i = firstPage; i <= lastPage; i++) {
+		uint64_t pSkipPage, pWritePage, actualWrite;
 
-        local_calcSkipAct(art->numParticlesInPage, pSkip, pWrite, &pSkipPage,
-                          &pWritePage);
-        actualWrite = art_writeToPage(art, i, pSkipPage, pWritePage, data);
-        assert(actualWrite == pWritePage);
+		local_calcSkipAct(art->numParticlesInPage, pSkip, pWrite,
+		                  &pSkipPage, &pWritePage);
+		actualWrite = art_writeToPage(art, i, pSkipPage, pWritePage, data);
+		assert(actualWrite == pWritePage);
 
-        local_rebaseStaisData(data, actualWrite);
-        numPartsWriteTotal += actualWrite;
-        pSkip -= pSkipPage;
-        pWrite -= pWritePage;
-    }
-    local_rebaseStaisData(data, -((int64_t)numPartsWriteTotal));
+		local_rebaseStaisData(data, actualWrite);
+		numPartsWriteTotal += actualWrite;
+		pSkip              -= pSkipPage;
+		pWrite             -= pWritePage;
+	}
+	local_rebaseStaisData(data, -((int64_t)numPartsWriteTotal));
 
-    if (!wasOpened)
-        art_close(art);
+	if (!wasOpened)
+		art_close(art);
 
-    return numPartsWriteTotal;
+	return numPartsWriteTotal;
 }
 
-extern uint64_t art_write(art_t art, uint64_t pSkip, uint64_t pWrite,
-                          stai_t *data) {
-    uint64_t numPartsWriteTotal = UINT64_C(0);
-    int firstFile, lastFile;
+extern uint64_t
+art_write(art_t    art,
+          uint64_t pSkip,
+          uint64_t pWrite,
+          stai_t   *data)
+{
+	uint64_t numPartsWriteTotal = UINT64_C(0);
+	int      firstFile, lastFile;
 
-    assert(art != NULL);
-    assert(pSkip + pWrite <= artHeader_getNumParticlesTotal(art->header));
+	assert(art != NULL);
+	assert(pSkip + pWrite <= artHeader_getNumParticlesTotal(art->header));
 
-    local_calcFirstLast(art->numParticlesInFile, art->numFiles - 1, pSkip,
-                        pWrite, &firstFile, &lastFile);
-    pSkip -= ((uint64_t)firstFile) * art->numParticlesInFile;
+	local_calcFirstLast(art->numParticlesInFile, art->numFiles - 1,
+	                    pSkip, pWrite, &firstFile, &lastFile);
+	pSkip -= ((uint64_t)firstFile) * art->numParticlesInFile;
 
-    for (int i = firstFile; i <= lastFile; i++) {
-        uint64_t pSkipFile, pWriteFile, actualWrite;
+	for (int i = firstFile; i <= lastFile; i++) {
+		uint64_t pSkipFile, pWriteFile, actualWrite;
 
-        art_open(art, ART_MODE_WRITE, i);
-        local_calcSkipAct(art->numParticlesInThisFile, pSkip, pWrite,
-                          &pSkipFile, &pWriteFile);
-        actualWrite = art_writeToFile(art, i, pSkipFile, pWriteFile, data);
-        assert(actualWrite == pWriteFile);
-        art_close(art);
+		art_open(art, ART_MODE_WRITE, i);
+		local_calcSkipAct(art->numParticlesInThisFile,
+		                  pSkip, pWrite, &pSkipFile, &pWriteFile);
+		actualWrite = art_writeToFile(art, i, pSkipFile, pWriteFile, data);
+		assert(actualWrite == pWriteFile);
+		art_close(art);
 
-        local_rebaseStaisData(data, actualWrite);
-        numPartsWriteTotal += actualWrite;
-        pSkip -= pSkipFile;
-        pWrite -= pWriteFile;
-    }
-    local_rebaseStaisData(data, -((int64_t)numPartsWriteTotal));
+		local_rebaseStaisData(data, actualWrite);
+		numPartsWriteTotal += actualWrite;
+		pSkip              -= pSkipFile;
+		pWrite             -= pWriteFile;
+	}
+	local_rebaseStaisData(data, -((int64_t)numPartsWriteTotal));
 
-    return numPartsWriteTotal;
+	return numPartsWriteTotal;
 }
 
-extern uint64_t art_readFromPage(art_t art, int pageNumber, uint64_t pSkip,
-                                 uint64_t pRead, stai_t *data) {
-    bool doByteswap = false;
-    endian_t systemEndianess = endian_getSystemEndianess();
+extern uint64_t
+art_readFromPage(art_t    art,
+                 int      pageNumber,
+                 uint64_t pSkip,
+                 uint64_t pRead,
+                 stai_t   *data)
+{
+	bool     doByteswap      = false;
+	endian_t systemEndianess = endian_getSystemEndianess();
 
-    assert(art != NULL);
-    assert(art->f != NULL && art->mode == ART_MODE_READ);
-    assert(pageNumber < art->numPagesInThisFile);
+	assert(art != NULL);
+	assert(art->f != NULL && art->mode == ART_MODE_READ);
+	assert(pageNumber < art->numPagesInThisFile);
 
-    local_seekToPage(art, pageNumber);
+	local_seekToPage(art, pageNumber);
 
-    if (systemEndianess != artHeader_getFileEndianess(art->header))
-        doByteswap = true;
+	if (systemEndianess != artHeader_getFileEndianess(art->header))
+		doByteswap = true;
 
-    local_readComponent(art, pSkip, pRead, data[0], doByteswap);
-    local_readComponent(art, pSkip, pRead, data[1], doByteswap);
-    local_readComponent(art, pSkip, pRead, data[2], doByteswap);
-    local_readComponent(art, pSkip, pRead, data[3], doByteswap);
-    local_readComponent(art, pSkip, pRead, data[4], doByteswap);
-    local_readComponent(art, pSkip, pRead, data[5], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[0], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[1], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[2], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[3], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[4], doByteswap);
+	local_readComponent(art, pSkip, pRead, data[5], doByteswap);
 
-    return pRead;
+	return pRead;
 }
 
-extern uint64_t art_readFromFile(art_t art, int fileNumber, uint64_t pSkip,
-                                 uint64_t pRead, stai_t *data) {
-    bool wasOpened;
-    uint64_t numPartsReadTotal = UINT64_C(0);
-    int firstPage, lastPage;
+extern uint64_t
+art_readFromFile(art_t    art,
+                 int      fileNumber,
+                 uint64_t pSkip,
+                 uint64_t pRead,
+                 stai_t   *data)
+{
+	bool     wasOpened;
+	uint64_t numPartsReadTotal = UINT64_C(0);
+	int      firstPage, lastPage;
 
-    wasOpened = (art->f == NULL) ? false : true;
-    art_open(art, ART_MODE_READ, fileNumber);
+	wasOpened = (art->f == NULL) ? false : true;
+	art_open(art, ART_MODE_READ, fileNumber);
 
-    local_calcFirstLast(art->numParticlesInPage, art->numPagesInThisFile, pSkip,
-                        pRead, &firstPage, &lastPage);
-    pSkip -= ((uint64_t)firstPage) * art->numParticlesInPage;
+	local_calcFirstLast(art->numParticlesInPage, art->numPagesInThisFile,
+	                    pSkip, pRead, &firstPage, &lastPage);
+	pSkip -= ((uint64_t)firstPage) * art->numParticlesInPage;
 
-    for (int i = firstPage; i <= lastPage; i++) {
-        uint64_t pSkipPage, pReadPage, actualRead;
+	for (int i = firstPage; i <= lastPage; i++) {
+		uint64_t pSkipPage, pReadPage, actualRead;
 
-        local_calcSkipAct(art->numParticlesInPage, pSkip, pRead, &pSkipPage,
-                          &pReadPage);
-        actualRead = art_readFromPage(art, i, pSkipPage, pReadPage, data);
-        assert(actualRead == pReadPage);
+		local_calcSkipAct(art->numParticlesInPage, pSkip, pRead,
+		                  &pSkipPage, &pReadPage);
+		actualRead = art_readFromPage(art, i, pSkipPage, pReadPage, data);
+		assert(actualRead == pReadPage);
 
-        local_rebaseStaisData(data, actualRead);
-        numPartsReadTotal += actualRead;
-        pSkip -= pSkipPage;
-        pRead -= pReadPage;
-    }
-    local_rebaseStaisData(data, -((int64_t)numPartsReadTotal));
+		local_rebaseStaisData(data, actualRead);
+		numPartsReadTotal += actualRead;
+		pSkip             -= pSkipPage;
+		pRead             -= pReadPage;
+	}
+	local_rebaseStaisData(data, -((int64_t)numPartsReadTotal));
 
-    if (!wasOpened)
-        art_close(art);
+	if (!wasOpened)
+		art_close(art);
 
-    return numPartsReadTotal;
+	return numPartsReadTotal;
 }
 
-extern uint64_t art_read(art_t art, uint64_t pSkip, uint64_t pRead,
-                         stai_t *data) {
-    uint64_t numPartsReadTotal = UINT64_C(0);
-    int firstFile, lastFile;
+extern uint64_t
+art_read(art_t art, uint64_t pSkip, uint64_t pRead, stai_t *data)
+{
+	uint64_t numPartsReadTotal = UINT64_C(0);
+	int      firstFile, lastFile;
 
-    assert(art != NULL);
-    assert(pSkip + pRead <= artHeader_getNumParticlesTotal(art->header));
+	assert(art != NULL);
+	assert(pSkip + pRead <= artHeader_getNumParticlesTotal(art->header));
 
-    local_calcFirstLast(art->numParticlesInFile, art->numFiles - 1, pSkip,
-                        pRead, &firstFile, &lastFile);
-    pSkip -= ((uint64_t)firstFile) * art->numParticlesInFile;
+	local_calcFirstLast(art->numParticlesInFile, art->numFiles - 1,
+	                    pSkip, pRead, &firstFile, &lastFile);
+	pSkip -= ((uint64_t)firstFile) * art->numParticlesInFile;
 
-    for (int i = firstFile; i <= lastFile; i++) {
-        uint64_t pSkipFile, pReadFile, actualRead;
+	for (int i = firstFile; i <= lastFile; i++) {
+		uint64_t pSkipFile, pReadFile, actualRead;
 
-        art_open(art, ART_MODE_READ, i);
-        local_calcSkipAct(art->numParticlesInThisFile, pSkip, pRead, &pSkipFile,
-                          &pReadFile);
-        actualRead = art_readFromFile(art, i, pSkipFile, pReadFile, data);
-        assert(actualRead == pReadFile);
-        art_close(art);
+		art_open(art, ART_MODE_READ, i);
+		local_calcSkipAct(art->numParticlesInThisFile,
+		                  pSkip, pRead, &pSkipFile, &pReadFile);
+		actualRead = art_readFromFile(art, i, pSkipFile, pReadFile, data);
+		assert(actualRead == pReadFile);
+		art_close(art);
 
-        local_rebaseStaisData(data, actualRead);
-        numPartsReadTotal += actualRead;
-        pSkip -= pSkipFile;
-        pRead -= pReadFile;
-    }
-    local_rebaseStaisData(data, -((int64_t)numPartsReadTotal));
+		local_rebaseStaisData(data, actualRead);
+		numPartsReadTotal += actualRead;
+		pSkip             -= pSkipFile;
+		pRead             -= pReadFile;
+	}
+	local_rebaseStaisData(data, -((int64_t)numPartsReadTotal));
 
-    return numPartsReadTotal;
+	return numPartsReadTotal;
 }
 
-extern void art_prettyPrint(const art_t art, const char *prefix, FILE *f) {
-    int i;
-    const char *actualPrefix = (prefix == NULL) ? "" : prefix;
+extern void
+art_prettyPrint(const art_t art, const char *prefix, FILE *f)
+{
+	int        i;
+	const char *actualPrefix = (prefix == NULL) ? "" : prefix;
 
-    fprintf(f, "%s\n%sGeneral information:\n", actualPrefix, actualPrefix);
-    fprintf(f, "%s  Header file name                :  %s\n", actualPrefix,
-            art->fileNameHeader);
-    fprintf(f, "%s  Number of files                 :  %i\n", actualPrefix,
-            art->numFiles);
-    fprintf(f, "%s  Total number of pages           :  %i\n", actualPrefix,
-            art->numTotalPages);
-    fprintf(f, "%s  Total number of particles       :  %" PRIu64 "\n",
-            actualPrefix, artHeader_getNumParticlesTotal(art->header));
-    fprintf(f, "%s  Number of particles in page     :  %i\n", actualPrefix,
-            art->numParticlesInPage);
-    fprintf(f, "%s  Number of particles in last page:  %i\n", actualPrefix,
-            art->numParticlesInLastPage);
 
-    fprintf(f, "%s\n%sFile specific information:\n", actualPrefix,
-            actualPrefix);
-    for (i = 0; i < art->numFiles - 1; i++) {
-        fprintf(f, "%s  Data file name:  %s\n", actualPrefix,
-                art->fileNamesData[i]);
-        fprintf(f, "%s    pages in file    :  %i\n", actualPrefix,
-                art->numPagesInFile);
-        fprintf(f, "%s    particles in file:  %i\n", actualPrefix,
-                art->numParticlesInFile);
-    }
+	fprintf(f, "%s\n%sGeneral information:\n", actualPrefix, actualPrefix);
+	fprintf(f, "%s  Header file name                :  %s\n",
+	        actualPrefix, art->fileNameHeader);
+	fprintf(f, "%s  Number of files                 :  %i\n",
+	        actualPrefix, art->numFiles);
+	fprintf(f, "%s  Total number of pages           :  %i\n",
+	        actualPrefix, art->numTotalPages);
+	fprintf(f, "%s  Total number of particles       :  %" PRIu64 "\n",
+	        actualPrefix, artHeader_getNumParticlesTotal(art->header));
+	fprintf(f, "%s  Number of particles in page     :  %i\n",
+	        actualPrefix, art->numParticlesInPage);
+	fprintf(f, "%s  Number of particles in last page:  %i\n",
+	        actualPrefix, art->numParticlesInLastPage);
 
-    fprintf(f, "%s  Data file name:  %s\n", actualPrefix,
-            art->fileNamesData[i]);
-    fprintf(f, "%s    pages in file    :  %i\n", actualPrefix,
-            art->numPagesInLastFile);
-    fprintf(f, "%s    particles in file:  %i\n", actualPrefix,
-            art->numParticlesInLastFile);
+	fprintf(f, "%s\n%sFile specific information:\n",
+	        actualPrefix, actualPrefix);
+	for (i = 0; i < art->numFiles - 1; i++) {
+		fprintf(f, "%s  Data file name:  %s\n",
+		        actualPrefix, art->fileNamesData[i]);
+		fprintf(f, "%s    pages in file    :  %i\n",
+		        actualPrefix, art->numPagesInFile);
+		fprintf(f, "%s    particles in file:  %i\n",
+		        actualPrefix, art->numParticlesInFile);
+	}
+
+	fprintf(f, "%s  Data file name:  %s\n",
+	        actualPrefix, art->fileNamesData[i]);
+	fprintf(f, "%s    pages in file    :  %i\n",
+	        actualPrefix, art->numPagesInLastFile);
+	fprintf(f, "%s    particles in file:  %i\n",
+	        actualPrefix, art->numParticlesInLastFile);
 } /* art_prettyPrint */
 
 /*--- Implementations of local functions --------------------------------*/
-static char *local_createFileNameHeader(const char *pathToFiles,
-                                        const char *fileNameSuffix) {
-    char *fileName;
-    char *fileStem;
+static char *
+local_createFileNameHeader(const char *pathToFiles,
+                           const char *fileNameSuffix)
+{
+	char *fileName;
+	char *fileStem;
 
-    fileStem = local_getFileStem(pathToFiles, "PMcrd");
+	fileStem = local_getFileStem(pathToFiles, "PMcrd");
 
-    if (fileNameSuffix == ART_USE_DEFAULT_SUFFIX)
-        fileName = xstrmerge(fileStem, ART_DEFAULT_SUFFIX_STRING);
-    else
-        fileName = xstrmerge(fileStem, fileNameSuffix);
+	if (fileNameSuffix == ART_USE_DEFAULT_SUFFIX)
+		fileName = xstrmerge(fileStem, ART_DEFAULT_SUFFIX_STRING);
+	else
+		fileName = xstrmerge(fileStem, fileNameSuffix);
 
-    xfree(fileStem);
+	xfree(fileStem);
 
-    return fileName;
+	return fileName;
 }
 
-static char **local_createFileNamesData(const char *pathToFiles,
-                                        const char *fileNameSuffix,
-                                        int numFiles) {
-    char **fileNames;
-    char *fileStem;
-    char *thisFileStem;
-    int digits;
+static char **
+local_createFileNamesData(const char *pathToFiles,
+                          const char *fileNameSuffix,
+                          int        numFiles)
+{
+	char **fileNames;
+	char *fileStem;
+	char *thisFileStem;
+	int  digits;
 
-    fileStem = local_getFileStem(pathToFiles, "PMcrs");
-    thisFileStem =
-        xmalloc(sizeof(char) * strlen(fileStem) + ART_MAX_FILEDIGITS + 1);
-    digits = local_getRequiredDigits(numFiles);
+	fileStem     = local_getFileStem(pathToFiles, "PMcrs");
+	thisFileStem = xmalloc(sizeof(char) * strlen(fileStem)
+	                       + ART_MAX_FILEDIGITS + 1);
+	digits       = local_getRequiredDigits(numFiles);
 
-    assert(numFiles > 0 && numFiles < ART_MAX_NUMFILES);
-    fileNames = xmalloc(sizeof(char *) * numFiles);
-    for (int i = 0; i < numFiles; i++) {
-        sprintf(thisFileStem, "%s%0*i", fileStem, digits, i);
-        if (fileNameSuffix == ART_USE_DEFAULT_SUFFIX)
-            fileNames[i] = xstrmerge(thisFileStem, ART_DEFAULT_SUFFIX_STRING);
-        else
-            fileNames[i] = xstrmerge(thisFileStem, fileNameSuffix);
-    }
+	assert(numFiles > 0 && numFiles < ART_MAX_NUMFILES);
+	fileNames = xmalloc(sizeof(char *) * numFiles);
+	for (int i = 0; i < numFiles; i++) {
+		sprintf(thisFileStem, "%s%0*i", fileStem, digits, i);
+		if (fileNameSuffix == ART_USE_DEFAULT_SUFFIX)
+			fileNames[i] = xstrmerge(thisFileStem,
+			                         ART_DEFAULT_SUFFIX_STRING);
+		else
+			fileNames[i] = xstrmerge(thisFileStem, fileNameSuffix);
+	}
 
-    xfree(thisFileStem);
-    xfree(fileStem);
+	xfree(thisFileStem);
+	xfree(fileStem);
 
-    return fileNames;
+	return fileNames;
 }
 
-static char *local_getFileStem(const char *path, const char *fileNameStart) {
-    char *properPath;
-    char *fileStem;
+static char *
+local_getFileStem(const char *path, const char *fileNameStart)
+{
+	char *properPath;
+	char *fileStem;
 
-    if (path == ART_USE_DEFAULT_PATH)
-        properPath = xstrdup(ART_DEFAULT_PATH_STRING);
-    else
-        properPath = local_getProperPath(path);
+	if (path == ART_USE_DEFAULT_PATH)
+		properPath = xstrdup(ART_DEFAULT_PATH_STRING);
+	else
+		properPath = local_getProperPath(path);
 
-    fileStem = xstrmerge(properPath, fileNameStart);
+	fileStem = xstrmerge(properPath, fileNameStart);
 
-    xfree(properPath);
+	xfree(properPath);
 
-    return fileStem;
+	return fileStem;
 }
 
-static char *local_getProperPath(const char *path) {
-    char *properPath;
-    size_t len = strlen(path);
+static char *
+local_getProperPath(const char *path)
+{
+	char   *properPath;
+	size_t len = strlen(path);
 
-    if (path[len - 1] != '/')
-        properPath = xstrmerge(path, "/");
-    else
-        properPath = xstrdup(path);
+	if (path[len - 1] != '/')
+		properPath = xstrmerge(path, "/");
+	else
+		properPath = xstrdup(path);
 
-    return properPath;
+	return properPath;
 }
 
-static void local_updateNumbers(art_t art) {
-    uint64_t numParticles = artHeader_getNumParticlesTotal(art->header);
-    int nrowc = artHeader_getNrowc(art->header);
+static void
+local_updateNumbers(art_t art)
+{
+	uint64_t numParticles = artHeader_getNumParticlesTotal(art->header);
+	int      nrowc        = artHeader_getNrowc(art->header);
 
-    if (art->truncateNrowc && nrowc > ART_MAX_NROWC)
-        nrowc = ART_MAX_NROWC;
+	if (art->truncateNrowc && nrowc > ART_MAX_NROWC)
+		nrowc = ART_MAX_NROWC;
 
-    art->numParticlesInPage = nrowc * nrowc;
+	art->numParticlesInPage = nrowc * nrowc;
 
-    art->numTotalPages = (int)(numParticles / art->numParticlesInPage);
-    if (numParticles % art->numParticlesInPage != 0)
-        art->numTotalPages++;
+	art->numTotalPages      = (int)(numParticles
+	                                / art->numParticlesInPage);
+	if (numParticles % art->numParticlesInPage != 0)
+		art->numTotalPages++;
 
-    assert(art->numTotalPages >= art->numFiles);
+	assert(art->numTotalPages >= art->numFiles);
 
-    art->numParticlesInLastPage =
-        (int)(numParticles -
-              (art->numParticlesInPage * (art->numTotalPages - 1)));
+	art->numParticlesInLastPage = (int)(numParticles
+	                                    - (art->numParticlesInPage
+	                                       * (art->numTotalPages - 1)));
 
-    art->numPagesInFile = art->numTotalPages / art->numFiles;
-    art->numPagesInLastFile =
-        art->numTotalPages - ((art->numFiles - 1) * art->numPagesInFile);
+	art->numPagesInFile     = art->numTotalPages / art->numFiles;
+	art->numPagesInLastFile = art->numTotalPages
+	                          - ((art->numFiles - 1)
+	                             * art->numPagesInFile);
 
-    art->numParticlesInFile = art->numPagesInFile * art->numParticlesInPage;
-    art->numParticlesInLastFile =
-        (art->numPagesInLastFile - 1) * art->numParticlesInPage +
-        art->numParticlesInLastPage;
+	art->numParticlesInFile     = art->numPagesInFile
+	                              * art->numParticlesInPage;
+	art->numParticlesInLastFile = (art->numPagesInLastFile - 1)
+	                              * art->numParticlesInPage
+	                              + art->numParticlesInLastPage;
 }
 
-static void local_writeComponent(art_t art, uint64_t pSkip, uint64_t pWrite,
-                                 stai_t component, bool doByteswap) {
-    if ((component == NULL) || (pSkip == art->numParticlesInPage)) {
-        xfseek(art->f, art->numParticlesInPage * sizeof(float), SEEK_CUR);
-        return;
-    }
-    float *buffer;
-    bool bufferIsAllocated = false;
+static void
+local_writeComponent(art_t    art,
+                     uint64_t pSkip,
+                     uint64_t pWrite,
+                     stai_t   component,
+                     bool     doByteswap)
+{
+	if ((component == NULL) || (pSkip == art->numParticlesInPage)) {
+		xfseek(art->f, art->numParticlesInPage * sizeof(float), SEEK_CUR);
+		return;
+	}
+	float *buffer;
+	bool  bufferIsAllocated = false;
 
-    if (stai_isLinear(component) &&
-        (stai_getSizeOfElementInBytes(component) == sizeof(float))) {
-        buffer = stai_getBase(component);
-    } else {
-        buffer = xmalloc(sizeof(float) * pWrite);
-        bufferIsAllocated = true;
-        local_fillBufferFromStai(buffer, component, pWrite);
-    }
+	if (stai_isLinear(component)
+	    && (stai_getSizeOfElementInBytes(component) == sizeof(float))) {
+		buffer = stai_getBase(component);
+	} else {
+		buffer            = xmalloc(sizeof(float) * pWrite);
+		bufferIsAllocated = true;
+		local_fillBufferFromStai(buffer, component, pWrite);
+	}
 
-    if (doByteswap) {
-        for (int i = 0; i < pWrite; i++)
-            byteswap(buffer + i, sizeof(float));
-    }
+	if (doByteswap) {
+		for (int i = 0; i < pWrite; i++)
+			byteswap(buffer + i, sizeof(float));
+	}
 
-    xfseek(art->f, (long)pSkip * sizeof(float), SEEK_CUR);
-    xfwrite(buffer, sizeof(float), pWrite, art->f);
-    xfseek(art->f,
-           (long)(art->numParticlesInPage - pSkip - pWrite) * sizeof(float),
-           SEEK_CUR);
+	xfseek(art->f, (long)pSkip * sizeof(float), SEEK_CUR);
+	xfwrite(buffer, sizeof(float), pWrite, art->f);
+	xfseek(art->f,
+	       (long)(art->numParticlesInPage - pSkip - pWrite) * sizeof(float),
+	       SEEK_CUR);
 
-    if (doByteswap && !bufferIsAllocated) {
-        // Restore the original byte order of the data array.
-        for (int i = 0; i < art->numParticlesInPage; i++)
-            byteswap(buffer + i, sizeof(float));
-    }
-    if (bufferIsAllocated)
-        xfree(buffer);
+	if (doByteswap && !bufferIsAllocated) {
+		// Restore the original byte order of the data array.
+		for (int i = 0; i < art->numParticlesInPage; i++)
+			byteswap(buffer + i, sizeof(float));
+	}
+	if (bufferIsAllocated)
+		xfree(buffer);
 } /* local_writeComponent */
 
-static void local_readComponent(art_t art, uint64_t pSkip, uint64_t pRead,
-                                stai_t component, bool doByteswap) {
-    if ((component == NULL) || (pSkip == art->numParticlesInPage)) {
-        xfseek(art->f, art->numParticlesInPage * sizeof(float), SEEK_CUR);
-        return;
-    }
-    float *buffer;
-    bool bufferIsAllocated;
+static void
+local_readComponent(art_t    art,
+                    uint64_t pSkip,
+                    uint64_t pRead,
+                    stai_t   component,
+                    bool     doByteswap)
+{
+	if ((component == NULL) || (pSkip == art->numParticlesInPage)) {
+		xfseek(art->f, art->numParticlesInPage * sizeof(float), SEEK_CUR);
+		return;
+	}
+	float *buffer;
+	bool  bufferIsAllocated;
 
-    if (stai_isLinear(component) &&
-        (stai_getSizeOfElementInBytes(component) == sizeof(float))) {
-        buffer = stai_getBase(component);
-    } else {
-        buffer = xmalloc(sizeof(float) * pRead);
-        bufferIsAllocated = true;
-    }
+	if (stai_isLinear(component)
+	    && (stai_getSizeOfElementInBytes(component) == sizeof(float))) {
+		buffer = stai_getBase(component);
+	} else {
+		buffer            = xmalloc(sizeof(float) * pRead);
+		bufferIsAllocated = true;
+	}
 
-    xfseek(art->f, (long)pSkip * sizeof(float), SEEK_CUR);
-    xfread(buffer, sizeof(float), pRead, art->f);
-    xfseek(art->f,
-           (long)(art->numParticlesInPage - pSkip - pRead) * sizeof(float),
-           SEEK_CUR);
-    if (doByteswap) {
-        for (int i = 0; i < pRead; i++)
-            byteswap(buffer + i, sizeof(float));
-    }
+	xfseek(art->f, (long)pSkip * sizeof(float), SEEK_CUR);
+	xfread(buffer, sizeof(float), pRead, art->f);
+	xfseek(art->f,
+	       (long)(art->numParticlesInPage - pSkip - pRead) * sizeof(float),
+	       SEEK_CUR);
+	if (doByteswap) {
+		for (int i = 0; i < pRead; i++)
+			byteswap(buffer + i, sizeof(float));
+	}
 
-    if (bufferIsAllocated) {
-        local_copyBufferToStai(buffer, component, pRead);
-        xfree(buffer);
-    }
+	if (bufferIsAllocated) {
+		local_copyBufferToStai(buffer, component, pRead);
+		xfree(buffer);
+	}
 }
 
-static void local_fillBufferFromStai(float *buffer, stai_t stai,
-                                     int numValues) {
-    if (stai_getSizeOfElementInBytes(stai) == sizeof(float)) {
-        stai_getElementsMulti(stai, 0, buffer, numValues);
-    } else if (stai_getSizeOfElementInBytes(stai) == sizeof(double)) {
-        double d;
-        for (int i = 0; i < numValues; i++) {
-            stai_getElement(stai, i, &d);
-            buffer[i] = (float)d;
-        }
-    } else {
-        diediedie(EXIT_FAILURE);
-    }
+static void
+local_fillBufferFromStai(float *buffer, stai_t stai, int numValues)
+{
+	if (stai_getSizeOfElementInBytes(stai) == sizeof(float)) {
+		stai_getElementsMulti(stai, 0, buffer, numValues);
+	} else if (stai_getSizeOfElementInBytes(stai) == sizeof(double)) {
+		double d;
+		for (int i = 0; i < numValues; i++) {
+			stai_getElement(stai, i, &d);
+			buffer[i] = (float)d;
+		}
+	} else {
+		diediedie(EXIT_FAILURE);
+	}
 }
 
-static void local_copyBufferToStai(const float *buffer, stai_t stai,
-                                   int numValues) {
-    if (stai_getSizeOfElementInBytes(stai) == sizeof(float)) {
-        stai_setElementsMulti(stai, 0, buffer, numValues);
-    } else if (stai_getSizeOfElementInBytes(stai) == sizeof(double)) {
-        double d;
-        for (int i = 0; i < numValues; i++) {
-            d = (double)(buffer[i]);
-            stai_setElement(stai, i, &d);
-        }
-    } else {
-        diediedie(EXIT_FAILURE);
-    }
+static void
+local_copyBufferToStai(const float *buffer, stai_t stai, int numValues)
+{
+	if (stai_getSizeOfElementInBytes(stai) == sizeof(float)) {
+		stai_setElementsMulti(stai, 0, buffer, numValues);
+	} else if (stai_getSizeOfElementInBytes(stai) == sizeof(double)) {
+		double d;
+		for (int i = 0; i < numValues; i++) {
+			d = (double)(buffer[i]);
+			stai_setElement(stai, i, &d);
+		}
+	} else {
+		diediedie(EXIT_FAILURE);
+	}
 }
 
-static void local_seekToPage(art_t art, int pageNumber) {
-    long pos;
-    long posExpected;
+static void
+local_seekToPage(art_t art, int pageNumber)
+{
+	long pos;
+	long posExpected;
 
-    posExpected =
-        ((long)art->numParticlesInPage) * ART_SIZEOF_PARTICLE * pageNumber;
-    pos = ftell(art->f);
+	posExpected = ((long)art->numParticlesInPage) * ART_SIZEOF_PARTICLE
+	              * pageNumber;
+	pos         = ftell(art->f);
 
-    if (pos != posExpected)
-        xfseek(art->f, posExpected, SEEK_SET);
+	if (pos != posExpected)
+		xfseek(art->f, posExpected, SEEK_SET);
 }
 
-inline static void local_rebaseStaisData(stai_t *data, int64_t offsetElements) {
-    if (data[0] != NULL)
-        stai_rebase(data[0], offsetElements);
-    if (data[1] != NULL)
-        stai_rebase(data[1], offsetElements);
-    if (data[2] != NULL)
-        stai_rebase(data[2], offsetElements);
-    if (data[3] != NULL)
-        stai_rebase(data[3], offsetElements);
-    if (data[4] != NULL)
-        stai_rebase(data[4], offsetElements);
-    if (data[5] != NULL)
-        stai_rebase(data[5], offsetElements);
+inline static void
+local_rebaseStaisData(stai_t *data, int64_t offsetElements)
+{
+	if (data[0] != NULL)
+		stai_rebase(data[0], offsetElements);
+	if (data[1] != NULL)
+		stai_rebase(data[1], offsetElements);
+	if (data[2] != NULL)
+		stai_rebase(data[2], offsetElements);
+	if (data[3] != NULL)
+		stai_rebase(data[3], offsetElements);
+	if (data[4] != NULL)
+		stai_rebase(data[4], offsetElements);
+	if (data[5] != NULL)
+		stai_rebase(data[5], offsetElements);
 }
 
-static void local_calcFirstLast(int normalizer, int largest, uint64_t pSkip,
-                                uint64_t pAct, int *first, int *last) {
-    *first = pSkip / normalizer;
-    if (*first > largest)
-        *first = largest;
+static void
+local_calcFirstLast(int      normalizer,
+                    int      largest,
+                    uint64_t pSkip,
+                    uint64_t pAct,
+                    int      *first,
+                    int      *last)
+{
+	*first = pSkip / normalizer;
+	if (*first > largest)
+		*first = largest;
 
-    *last = (pSkip + pAct - 1) / normalizer;
-    if (*last > largest)
-        *last = largest;
+	*last = (pSkip + pAct - 1) / normalizer;
+	if (*last > largest)
+		*last = largest;
 }
 
-static void local_calcSkipAct(int normalizer, uint64_t pSkip, uint64_t pAct,
-                              uint64_t *pSkipCalc, uint64_t *pActCalc) {
-    if (pSkip > normalizer)
-        *pSkipCalc = normalizer;
-    else
-        *pSkipCalc = pSkip;
+static void
+local_calcSkipAct(int      normalizer,
+                  uint64_t pSkip,
+                  uint64_t pAct,
+                  uint64_t *pSkipCalc,
+                  uint64_t *pActCalc)
+{
+	if (pSkip > normalizer)
+		*pSkipCalc = normalizer;
+	else
+		*pSkipCalc = pSkip;
 
-    if (pAct > normalizer - *pSkipCalc)
-        *pActCalc = normalizer - *pSkipCalc;
-    else
-        *pActCalc = pAct;
+	if (pAct > normalizer - *pSkipCalc)
+		*pActCalc = normalizer - *pSkipCalc;
+	else
+		*pActCalc = pAct;
 }
 
-static int local_getRequiredDigits(int numFiles) {
-    int digits = 1;
-    int divisor = 10;
+static int
+local_getRequiredDigits(int numFiles)
+{
+	int digits  = 1;
+	int divisor = 10;
 
-    while (digits < ART_MAX_FILEDIGITS && numFiles / divisor != 0) {
-        digits++;
-        divisor *= 10;
-    }
+	while (digits < ART_MAX_FILEDIGITS && numFiles / divisor != 0) {
+		digits++;
+		divisor *= 10;
+	}
 
-    return digits;
+	return digits;
 }

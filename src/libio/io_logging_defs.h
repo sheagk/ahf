@@ -10,12 +10,14 @@
  * needed in io_logging.c.
  */
 
-/**********************************************************************\
- *    Includes                                                        *
-\**********************************************************************/
 
 /**********************************************************************\
- *    Global defines, structure definitions and typedefs              *
+ *    Includes                                                        * 
+\**********************************************************************/
+
+
+/**********************************************************************\
+ *    Global defines, structure definitions and typedefs              * 
 \**********************************************************************/
 
 /**
@@ -29,28 +31,27 @@
  */
 #define IO_LOGGING_STOP "\nLogging stopped.\n\n"
 
-/**
- * The AMIGA logo.
- */
-#define IO_LOGGING_LOGO                                                        \
-    "\t             A        H       H   FFFFFFFF    \n"                       \
-    "\t           A A       H       H   F           \n"                        \
-    "\t         A   A      H       H   F           \n"                         \
-    "\t       AAAAAAA     HHHHHHHHH   FFFFFF      \n"                          \
-    "\t     A       A    H       H   F           \n"                           \
-    "\t   A         A   H       H   F           \n"                            \
-    "\t A           A  H       H   F       "
+	/**
+	 * The AMIGA logo.
+	 */
+#	define IO_LOGGING_LOGO \
+"\t             A        H       H   FFFFFFFF    \n"\
+"\t           A A       H       H   F           \n"\
+"\t         A   A      H       H   F           \n"\
+"\t       AAAAAAA     HHHHHHHHH   FFFFFF      \n"\
+"\t     A       A    H       H   F           \n"\
+"\t   A         A   H       H   F           \n"\
+"\t A           A  H       H   F       "
+
 
 /**
  * A horizontal bar.
  */
-#define IO_LOGGING_BAR                                                         \
-    "========================================================================" \
-    "======="
+#define IO_LOGGING_BAR \
+"==============================================================================="
 
-#define IO_LOGGING_BAR2                                                        \
-    "------------------------------------------------------------------------" \
-    "-------"
+#define IO_LOGGING_BAR2 \
+"-------------------------------------------------------------------------------"
 
 #define IO_LOGGING_PART_PRE "\n\n\n\n\n\n" IO_LOGGING_BAR "\n\n"
 #define IO_LOGGING_PART_POST "\n\n" IO_LOGGING_BAR "\n\n"
@@ -66,5 +67,6 @@
 #define IO_LOGGING_SUBSECTION_POST "\n" IO_LOGGING_BAR2 "\n\n"
 #define IO_LOGGING_SUBSECTION_NUM_PRE "  "
 #define IO_LOGGING_SUBSECTION_NUM_POST "  "
+
 
 #endif /* IO_LOGGING_DEFS_H */

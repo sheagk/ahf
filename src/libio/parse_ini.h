@@ -5,6 +5,7 @@
 #ifndef PARSE_INI_H
 #define PARSE_INI_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,11 +14,13 @@
  * @brief  This file provides the interface of the INI file type.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
-#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
+
 
 /*--- Exported defines --------------------------------------------------*/
 
@@ -35,19 +38,22 @@
  * @param sectionName
  *           The section in which to search.
  */
-#define getFromIni(trgt, func, ini, keyName, sectionName)                      \
-    if (!func(ini, keyName, sectionName, trgt)) {                              \
-        fprintf(stderr, "FATAL:  Could not get %s from section %s.\n",         \
-                keyName, sectionName);                                         \
-        exit(EXIT_FAILURE);                                                    \
-    }
+#define getFromIni(trgt, func, ini, keyName, sectionName)      \
+    if (!func(ini, keyName, sectionName, trgt)) {              \
+		fprintf(stderr,                                        \
+		        "FATAL:  Could not get %s from section %s.\n", \
+		        keyName, sectionName);                         \
+		exit(EXIT_FAILURE);                                    \
+	}
+
 
 /*--- ADT handle --------------------------------------------------------*/
 
 /** @brief Short name for the structure holding the ini. */
 typedef struct parse_ini_struct parse_ini_struct_t;
 /** @brief Defines the handle of the ini parser. */
-typedef parse_ini_struct_t *parse_ini_t;
+typedef parse_ini_struct_t      *parse_ini_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -60,7 +66,9 @@ typedef parse_ini_struct_t *parse_ini_t;
  * \return  Returns a pointer to a correctly initialized ini file
  *          structure.
  */
-extern parse_ini_t parse_ini_open(const char *fname);
+extern parse_ini_t
+parse_ini_open(const char *fname);
+
 
 /**
  * \brief  Closes an ini file and destroys the associated object.
@@ -69,7 +77,9 @@ extern parse_ini_t parse_ini_open(const char *fname);
  *
  * \return  Returns nothing.
  */
-extern void parse_ini_close(parse_ini_t *ini);
+extern void
+parse_ini_close(parse_ini_t *ini);
+
 
 /**
  * \brief  Dumps the ini file structure to a file pointer.
@@ -79,7 +89,9 @@ extern void parse_ini_close(parse_ini_t *ini);
  *
  * \return  Returns nothing.
  */
-extern void parse_ini_dump(parse_ini_t ini, FILE *f);
+extern void
+parse_ini_dump(parse_ini_t ini, FILE *f);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as a
@@ -95,8 +107,12 @@ extern void parse_ini_dump(parse_ini_t ini, FILE *f);
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_int32(parse_ini_t ini, const char *key_name,
-                                const char *section_name, int32_t *value);
+extern bool
+parse_ini_get_int32(parse_ini_t ini,
+                    const char  *key_name,
+                    const char  *section_name,
+                    int32_t     *value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as an
@@ -112,8 +128,12 @@ extern bool parse_ini_get_int32(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_uint32(parse_ini_t ini, const char *key_name,
-                                 const char *section_name, uint32_t *value);
+extern bool
+parse_ini_get_uint32(parse_ini_t ini,
+                     const char  *key_name,
+                     const char  *section_name,
+                     uint32_t    *value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as a
@@ -129,8 +149,12 @@ extern bool parse_ini_get_uint32(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_int64(parse_ini_t ini, const char *key_name,
-                                const char *section_name, int64_t *value);
+extern bool
+parse_ini_get_int64(parse_ini_t ini,
+                    const char  *key_name,
+                    const char  *section_name,
+                    int64_t     *value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as an
@@ -146,8 +170,12 @@ extern bool parse_ini_get_int64(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_uint64(parse_ini_t ini, const char *key_name,
-                                 const char *section_name, uint64_t *value);
+extern bool
+parse_ini_get_uint64(parse_ini_t ini,
+                     const char  *key_name,
+                     const char  *section_name,
+                     uint64_t    *value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as a
@@ -163,8 +191,12 @@ extern bool parse_ini_get_uint64(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_double(parse_ini_t ini, const char *key_name,
-                                 const char *section_name, double *value);
+extern bool
+parse_ini_get_double(parse_ini_t ini,
+                     const char  *key_name,
+                     const char  *section_name,
+                     double      *value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as a
@@ -180,8 +212,12 @@ extern bool parse_ini_get_double(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_string(parse_ini_t ini, const char *key_name,
-                                 const char *section_name, char **value);
+extern bool
+parse_ini_get_string(parse_ini_t ini,
+                     const char  *key_name,
+                     const char  *section_name,
+                     char        **value);
+
 
 /**
  * \brief  Returns the value of a given key in a given section as a
@@ -197,8 +233,12 @@ extern bool parse_ini_get_string(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_bool(parse_ini_t ini, const char *key_name,
-                               const char *section_name, bool *value);
+extern bool
+parse_ini_get_bool(parse_ini_t ini,
+                   const char  *key_name,
+                   const char  *section_name,
+                   bool        *value);
+
 
 /**
  * \brief  Returns a list of strings, which are separated by
@@ -216,9 +256,13 @@ extern bool parse_ini_get_bool(parse_ini_t ini, const char *key_name,
  *          contained the correct number of elemets.  Otherwise false is
  *          returned.
  */
-extern bool parse_ini_get_stringlist(parse_ini_t ini, const char *key_name,
-                                     const char *section_name,
-                                     uint32_t num_values, char ***values);
+extern bool
+parse_ini_get_stringlist(parse_ini_t ini,
+                         const char  *key_name,
+                         const char  *section_name,
+                         uint32_t    num_values,
+                         char        ***values);
+
 
 /**
  * \brief  Returns the list of values.
@@ -234,9 +278,13 @@ extern bool parse_ini_get_stringlist(parse_ini_t ini, const char *key_name,
  * \return  Returns true if the value was found and something got passed
  *          back via the result pointer, otherwise false is returned.
  */
-extern bool parse_ini_get_int32list(parse_ini_t ini, const char *key_name,
-                                    const char *section_name,
-                                    uint32_t num_values, int32_t **values);
+extern bool
+parse_ini_get_int32list(parse_ini_t ini,
+                        const char  *key_name,
+                        const char  *section_name,
+                        uint32_t    num_values,
+                        int32_t     **values);
+
 
 /*--- Doxygen group definitions -----------------------------------------*/
 
@@ -246,5 +294,6 @@ extern bool parse_ini_get_int32list(parse_ini_t ini, const char *key_name,
  * @brief Provides low-level interfaces to INI files.
  *
  */
+
 
 #endif

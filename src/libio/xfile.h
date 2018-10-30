@@ -5,6 +5,7 @@
 #ifndef XFILE_H
 #define XFILE_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -14,11 +15,13 @@
  *        with files.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
-#include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -33,7 +36,9 @@
  *
  * \return  Returns a file pointer to the opened file.
  */
-extern FILE *xfopen(const char *path, const char *mode);
+extern FILE *
+xfopen(const char *path, const char *mode);
+
 
 /**
  * \brief  A wrapper function for fclose.
@@ -45,7 +50,9 @@ extern FILE *xfopen(const char *path, const char *mode);
  *
  * \return  This function will always return 0.
  */
-extern int xfclose(FILE **fp);
+extern int
+xfclose(FILE **fp);
+
 
 /**
  * \brief  A wrapper function for fread that will abort the program, if
@@ -59,7 +66,9 @@ extern int xfclose(FILE **fp);
  *
  * \return  This function always returns nmemb.
  */
-extern size_t xfread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+extern size_t
+xfread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+
 
 /**
  * \brief  A wrapper function for fwrite that will abort the program if
@@ -72,7 +81,9 @@ extern size_t xfread(void *ptr, size_t size, size_t nmemb, FILE *stream);
  *
  * \return  This function always returns nmemb.
  */
-extern size_t xfwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+extern size_t
+xfwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+
 
 /**
  * \brief  A wrapper function for fseek that will terminate the program
@@ -84,7 +95,8 @@ extern size_t xfwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
  *
  * \return  This function will always return 0.
  */
-extern int xfseek(FILE *stream, long offset, int whence);
+extern int
+xfseek(FILE *stream, long offset, int whence);
 
 /**
  * \brief  Creates a new file and ensures that it contains bytes number
@@ -95,7 +107,8 @@ extern int xfseek(FILE *stream, long offset, int whence);
  *
  * \return  Always returns 0.
  */
-extern int xfile_createFileWithSize(const char *fname, size_t bytes);
+extern int
+xfile_createFileWithSize(const char *fname, size_t bytes);
 
 /**
  * \brief  Check whether a file exists.
@@ -105,6 +118,7 @@ extern int xfile_createFileWithSize(const char *fname, size_t bytes);
  *
  * \returns Returns true if the file exists and false if not.
  */
-extern bool xfile_checkIfFileExists(const char *fname);
+extern bool
+xfile_checkIfFileExists(const char *fname);
 
 #endif

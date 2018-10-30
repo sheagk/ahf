@@ -7,29 +7,33 @@
  * Provides utility functions for CubeP3M related things.
  */
 
+
 /***********************************************************************
  *    Includes                                                         *
  ***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "io_logging.h"
+
 
 /***********************************************************************
  *    Required defines                                                 *
  ***********************************************************************/
 #ifndef RHO_CRIT_0
-#define RHO_CRIT_0 2.7755397e11 // [h^2*Msun]/[Mpc^3]
+#  define RHO_CRIT_0 2.7755397e11   // [h^2*Msun]/[Mpc^3]
 #endif
 
 #ifndef H0
-#define H0 100. // [h*km]/[sec*Mpc]
+#  define H0 100.                   // [h*km]/[sec*Mpc]
 #endif
+
 
 /***********************************************************************
  *    Prototypes of global functions                                   *
  ***********************************************************************/
+
 
 /***********************************************************************
  *    Inline functions                                                 *
@@ -46,8 +50,10 @@
  *
  * \return  Returns the conversion factor.
  */
-inline static double io_cubep3m_util_lunit(double boxsize, uint64_t ngrid) {
-    return boxsize / ((double)ngrid);
+inline static double
+io_cubep3m_util_lunit(double boxsize, uint64_t ngrid)
+{
+	return boxsize / ((double)ngrid);
 }
 
 /**
@@ -67,10 +73,14 @@ inline static double io_cubep3m_util_lunit(double boxsize, uint64_t ngrid) {
  *
  * \return  Returns the converison factor,
  */
-inline static double io_cubep3m_util_munit(double boxsize, double omega0,
-                                           uint64_t nptotal, double weight) {
-    return boxsize * boxsize * boxsize * omega0 * RHO_CRIT_0 /
-           ((double)(nptotal)*weight);
+inline static double
+io_cubep3m_util_munit(double   boxsize,
+                      double   omega0,
+                      uint64_t nptotal,
+                      double   weight)
+{
+	return boxsize * boxsize * boxsize * omega0 * RHO_CRIT_0
+	       / ((double)(nptotal) * weight);
 }
 
 /**
@@ -88,9 +98,13 @@ inline static double io_cubep3m_util_munit(double boxsize, double omega0,
  *
  * \return  Returns the converison factor,
  */
-inline static double io_cubep3m_util_vunit(double boxsize, double omega0,
-                                           double a, uint64_t ngrid) {
-    return boxsize * 1.5 * sqrt(omega0) * H0 / (ngrid * a);
+inline static double
+io_cubep3m_util_vunit(double   boxsize,
+                      double   omega0,
+                      double   a,
+                      uint64_t ngrid)
+{
+	return boxsize * 1.5 * sqrt(omega0) * H0 / (ngrid * a);
 }
 
 #endif

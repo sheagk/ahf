@@ -44,7 +44,7 @@
  *--------------------------------------------------*/
 
 /* removes all variables related to the potential solver */
-//#define AHFlean                      /* will be deactivated for AHFpotcentre                                       */
+#define AHFlean                      /* will be deactivated for AHFpotcentre                                       */
 
 /* decide whether you want to re-assign the density on all levels after generating all refinements */
 //#define AHFdensrecovery              /* will be deactivated below for AHFcomcentre and activated for AHFpotcentre! */
@@ -63,7 +63,7 @@
 //#define AHFdmonlypeaks
 
 /* miscellaneous flags */
-//#define AHFdmonly_Rmax_r2          /* base determination of Rmax and r2 upon DM only                 */
+#define AHFdmonly_Rmax_r2          /* base determination of Rmax and r2 upon DM only                 */
 #define AHFparticle_Rmax_r2        /* base determination of Rmax and r2 upon sorted particle list    */
 //#define AHFsorthalosbymass        /* this will sort the halos by mass when writing the output files */
 //#define AHFaddDMonlyproperties    /* additionally calculates halo properties based upon DM only     */

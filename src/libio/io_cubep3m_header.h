@@ -8,16 +8,19 @@
  * files.
  */
 
+
 /**********************************************************************\
  *    Includes                                                        *
  \**********************************************************************/
-#include "io_cubep3m_def.h"
 #include "io_cubep3m_header_def.h"
+#include "io_cubep3m_def.h"
 #include "io_logging.h"
+
 
 /**********************************************************************\
  *    Global defines, structure definitions and typedefs              *
  \**********************************************************************/
+
 
 /**********************************************************************\
  *    Prototypes of global functions                                  *
@@ -36,8 +39,9 @@
  * \return A freshly filled header, or NULL, in case of memory
  *         problems.
  */
-extern io_cubep3m_header_t io_cubep3m_header_get(io_logging_t log,
-                                                 io_cubep3m_t f);
+extern io_cubep3m_header_t
+io_cubep3m_header_get(io_logging_t log, io_cubep3m_t f);
+
 
 /**
  * \brief This will delete a cubep3m header object.
@@ -48,8 +52,9 @@ extern io_cubep3m_header_t io_cubep3m_header_get(io_logging_t log,
  *
  * \return Nothing.
  */
-extern void io_cubep3m_header_del(io_logging_t log,
-                                  io_cubep3m_header_t *header);
+extern void
+io_cubep3m_header_del(io_logging_t log, io_cubep3m_header_t *header);
+
 
 /**
  * \brief Writes a header to the file.
@@ -60,8 +65,11 @@ extern void io_cubep3m_header_del(io_logging_t log,
  *
  * \return Nothing.
  */
-extern void io_cubep3m_header_write(io_logging_t log,
-                                    io_cubep3m_header_t header, io_cubep3m_t f);
+extern void
+io_cubep3m_header_write(io_logging_t        log,
+                        io_cubep3m_header_t header,
+                        io_cubep3m_t        f);
+
 
 /**
  * \briefs Writes the header information to the logfile.
@@ -71,7 +79,9 @@ extern void io_cubep3m_header_write(io_logging_t log,
  *
  * \return Nothing.
  */
-extern void io_cubep3m_header_log(io_logging_t log, io_cubep3m_header_t header);
+extern void
+io_cubep3m_header_log(io_logging_t log, io_cubep3m_header_t header);
+
 
 /**********************************************************************\
  *    Prototypes of protected functions                               *
@@ -99,13 +109,18 @@ extern void io_cubep3m_header_log(io_logging_t log, io_cubep3m_header_t header);
  *
  * \return  Returns nothing.
  */
-extern void io_cubep3m_header_read_basics(io_logging_t log, FILE *f,
-                                          io_file_swap_t swapped,
-                                          io_cubep3m_header_t header);
+extern void
+io_cubep3m_header_read_basics(io_logging_t        log,
+                              FILE                *f,
+                              io_file_swap_t      swapped,
+                              io_cubep3m_header_t header);
 
-extern void io_cubep3m_header_read_chunk_info(io_logging_t log, FILE *f,
-                                              io_file_swap_t swapped,
-                                              io_cubep3m_header_t header);
+extern void
+io_cubep3m_header_read_chunk_info(io_logging_t        log,
+                                  FILE                *f,
+                                  io_file_swap_t      swapped,
+                                  io_cubep3m_header_t header);
+
 
 /**
  * \brief  Reads and fills the extra information for the CubeP3M header from
@@ -125,8 +140,9 @@ extern void io_cubep3m_header_read_chunk_info(io_logging_t log, FILE *f,
  *
  * \return  Returns nothing.
  */
-extern void io_cubep3m_header_read_extras(io_logging_t log,
-                                          const char *extras_file_name,
-                                          io_cubep3m_header_t header);
+extern void
+io_cubep3m_header_read_extras(io_logging_t        log,
+                              const char          *extras_file_name,
+                              io_cubep3m_header_t header);
 
 #endif /* IO_CUBEP3M_HEADER_H */

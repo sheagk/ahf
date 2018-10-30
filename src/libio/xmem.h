@@ -5,6 +5,7 @@
 #ifndef XMEM_H
 #define XMEM_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,20 +14,23 @@
  * @brief This file provides utility functions dealing with memory.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #ifdef XMEM_TRACK_MEM
-#include <stdint.h>
+#  include <stdint.h>
 #endif
+
 
 /*--- Exported global variables -----------------------------------------*/
 #ifdef XMEM_TRACK_MEM
-extern size_t global_allocated_bytes;
-extern size_t global_max_allocated_bytes;
+extern size_t  global_allocated_bytes;
+extern size_t  global_max_allocated_bytes;
 extern int64_t global_malloc_vs_free;
 #endif
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -42,7 +46,9 @@ extern int64_t global_malloc_vs_free;
  *
  * \return  A pointer to the allocated memory region.
  */
-extern void *xmalloc(size_t size);
+extern void *
+xmalloc(size_t size);
+
 
 /**
  * \brief  A wrapper function for free, to allow for memory tracking.
@@ -54,7 +60,9 @@ extern void *xmalloc(size_t size);
  *
  * \return Nothing.
  */
-extern void xfree(void *ptr);
+extern void
+xfree(void *ptr);
+
 
 /**
  * \brief  A wrapper function for realloc, performing checks for correct
@@ -65,7 +73,9 @@ extern void xfree(void *ptr);
  *
  * \return A pointer to a resized objects.
  */
-extern void *xrealloc(void *ptr, size_t size);
+extern void *
+xrealloc(void *ptr, size_t size);
+
 
 #ifdef XMEM_TRACK_MEM
 
@@ -78,8 +88,10 @@ extern void *xrealloc(void *ptr, size_t size);
  *
  * \return Nothing.
  */
-void xmem_info(FILE *f);
+void
+xmem_info(FILE *f);
 
 #endif
+
 
 #endif

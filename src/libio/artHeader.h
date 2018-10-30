@@ -5,6 +5,7 @@
 #ifndef ARTHEADER_H
 #define ARTHEADER_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,11 +14,13 @@
  * @brief  This file provides the interface to ART file header.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
-#include "endian.h"
 #include "util_config.h"
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include "endian.h"
+
 
 /*--- ADT handle --------------------------------------------------------*/
 
@@ -25,6 +28,7 @@
  * @brief  Defines the handle for an ART header object.
  */
 typedef struct artHeader_struct *artHeader_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -39,7 +43,9 @@ typedef struct artHeader_struct *artHeader_t;
  *
  * @return  Returns a new header and empty ART header object.
  */
-extern artHeader_t artHeader_new(void);
+extern artHeader_t
+artHeader_new(void);
+
 
 /**
  * @brief  Creates a new ART header object and fills is from a PMcrd.DAT
@@ -53,7 +59,9 @@ extern artHeader_t artHeader_new(void);
  * @return  Returns a new header object filled with the values found in
  *          the file.
  */
-extern artHeader_t artHeader_newFromFile(const char *headerFileName);
+extern artHeader_t
+artHeader_newFromFile(const char *headerFileName);
+
 
 /**
  * @brief  Deletes a given ART header object.
@@ -66,7 +74,9 @@ extern artHeader_t artHeader_newFromFile(const char *headerFileName);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_del(artHeader_t *header);
+extern void
+artHeader_del(artHeader_t *header);
+
 
 /** @} */
 
@@ -91,7 +101,9 @@ extern void artHeader_del(artHeader_t *header);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setHeaderString(artHeader_t header, const char *string);
+extern void
+artHeader_setHeaderString(artHeader_t header, const char *string);
+
 
 /**
  * @brief  Sets the current expansion factor
@@ -105,7 +117,9 @@ extern void artHeader_setHeaderString(artHeader_t header, const char *string);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAexpn(artHeader_t header, float aexpn);
+extern void
+artHeader_setAexpn(artHeader_t header, float aexpn);
+
 
 /**
  * @brief  Sets initial expansion factor.
@@ -119,7 +133,9 @@ extern void artHeader_setAexpn(artHeader_t header, float aexpn);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAexp0(artHeader_t header, float aexp0);
+extern void
+artHeader_setAexp0(artHeader_t header, float aexp0);
+
 
 /**
  * @brief  Sets the amplitude.
@@ -132,7 +148,9 @@ extern void artHeader_setAexp0(artHeader_t header, float aexp0);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAmplt(artHeader_t header, float amplt);
+extern void
+artHeader_setAmplt(artHeader_t header, float amplt);
+
 
 /**
  * @brief  Sets the expansion time-step.
@@ -146,7 +164,9 @@ extern void artHeader_setAmplt(artHeader_t header, float amplt);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAstep(artHeader_t header, float astep);
+extern void
+artHeader_setAstep(artHeader_t header, float astep);
+
 
 /**
  * @brief  Sets the current time step number
@@ -160,7 +180,9 @@ extern void artHeader_setAstep(artHeader_t header, float astep);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setIstep(artHeader_t header, int istep);
+extern void
+artHeader_setIstep(artHeader_t header, int istep);
+
 
 /**
  * @brief  Sets partw.
@@ -173,7 +195,9 @@ extern void artHeader_setIstep(artHeader_t header, int istep);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setPartw(artHeader_t header, float partw);
+extern void
+artHeader_setPartw(artHeader_t header, float partw);
+
 
 /**
  * @brief  Sets tintg.
@@ -186,7 +210,9 @@ extern void artHeader_setPartw(artHeader_t header, float partw);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setTintg(artHeader_t header, float tintg);
+extern void
+artHeader_setTintg(artHeader_t header, float tintg);
+
 
 /**
  * @brief  Sets ekin.
@@ -199,7 +225,9 @@ extern void artHeader_setTintg(artHeader_t header, float tintg);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setEkin(artHeader_t header, float ekin);
+extern void
+artHeader_setEkin(artHeader_t header, float ekin);
+
 
 /**
  * @brief  Sets ekin1.
@@ -212,7 +240,9 @@ extern void artHeader_setEkin(artHeader_t header, float ekin);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setEkin1(artHeader_t header, float ekin1);
+extern void
+artHeader_setEkin1(artHeader_t header, float ekin1);
+
 
 /**
  * @brief  Sets ekin2.
@@ -225,7 +255,9 @@ extern void artHeader_setEkin1(artHeader_t header, float ekin1);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setEkin2(artHeader_t header, float ekin2);
+extern void
+artHeader_setEkin2(artHeader_t header, float ekin2);
+
 
 /**
  * @brief  Sets au0.
@@ -238,7 +270,9 @@ extern void artHeader_setEkin2(artHeader_t header, float ekin2);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAu0(artHeader_t header, float au0);
+extern void
+artHeader_setAu0(artHeader_t header, float au0);
+
 
 /**
  * @brief  Sets aeu0.
@@ -251,7 +285,9 @@ extern void artHeader_setAu0(artHeader_t header, float au0);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setAeu0(artHeader_t header, float aeu0);
+extern void
+artHeader_setAeu0(artHeader_t header, float aeu0);
+
 
 /**
  * @brief  Sets the finest employable grid.
@@ -266,7 +302,9 @@ extern void artHeader_setAeu0(artHeader_t header, float aeu0);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setNrowc(artHeader_t header, int nrowc);
+extern void
+artHeader_setNrowc(artHeader_t header, int nrowc);
+
 
 /**
  * @brief  Sets the coarsest grid dimension (defines the particle mass).
@@ -282,7 +320,9 @@ extern void artHeader_setNrowc(artHeader_t header, int nrowc);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setNgridc(artHeader_t header, int ngridc);
+extern void
+artHeader_setNgridc(artHeader_t header, int ngridc);
+
 
 /**
  * @brief  Sets the number of particle species used.
@@ -296,7 +336,9 @@ extern void artHeader_setNgridc(artHeader_t header, int ngridc);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setNspecies(artHeader_t header, int nspecies);
+extern void
+artHeader_setNspecies(artHeader_t header, int nspecies);
+
 
 /**
  * @brief  Sets the original seed of the random number generator.
@@ -309,7 +351,9 @@ extern void artHeader_setNspecies(artHeader_t header, int nspecies);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setNseed(artHeader_t header, int nseed);
+extern void
+artHeader_setNseed(artHeader_t header, int nseed);
+
 
 /**
  * @brief  Sets the matter density parameter at z = 0.
@@ -323,7 +367,9 @@ extern void artHeader_setNseed(artHeader_t header, int nseed);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setOm0(artHeader_t header, float Om0);
+extern void
+artHeader_setOm0(artHeader_t header, float Om0);
+
 
 /**
  * @brief  Sets the density parameter of the cosmological constant at z = 0.
@@ -337,7 +383,9 @@ extern void artHeader_setOm0(artHeader_t header, float Om0);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setOml0(artHeader_t header, float Oml0);
+extern void
+artHeader_setOml0(artHeader_t header, float Oml0);
+
 
 /**
  * @brief  Sets the hubble parameter in units of <tt>100 km/s/Mpc</tt>.
@@ -350,7 +398,9 @@ extern void artHeader_setOml0(artHeader_t header, float Oml0);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setHubble(artHeader_t header, float hubble);
+extern void
+artHeader_setHubble(artHeader_t header, float hubble);
+
 
 /**
  * @brief  Sets wp5.
@@ -363,7 +413,9 @@ extern void artHeader_setHubble(artHeader_t header, float hubble);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setWp5(artHeader_t header, float wp5);
+extern void
+artHeader_setWp5(artHeader_t header, float wp5);
+
 
 /**
  * @brief  Sets density parameter of the curvature term at z = 0.
@@ -377,7 +429,9 @@ extern void artHeader_setWp5(artHeader_t header, float wp5);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setOcurv(artHeader_t header, float Ocurv);
+extern void
+artHeader_setOcurv(artHeader_t header, float Ocurv);
+
 
 /**
  * @brief  Sets an extra value.
@@ -394,7 +448,9 @@ extern void artHeader_setOcurv(artHeader_t header, float Ocurv);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setExtras(artHeader_t header, float value, int position);
+extern void
+artHeader_setExtras(artHeader_t header, float value, int position);
+
 
 /**
  * @brief  Sets the weight of a particle species.
@@ -412,8 +468,9 @@ extern void artHeader_setExtras(artHeader_t header, float value, int position);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setWspecies(artHeader_t header, float value,
-                                  int position);
+extern void
+artHeader_setWspecies(artHeader_t header, float value, int position);
+
 
 /**
  * @brief  Sets number of particles of a given particle species.
@@ -431,8 +488,9 @@ extern void artHeader_setWspecies(artHeader_t header, float value,
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setLspecies(artHeader_t header, int64_t value,
-                                  int position);
+extern void
+artHeader_setLspecies(artHeader_t header, int64_t value, int position);
+
 
 /**
  * @brief  Sets the boxsize.
@@ -446,7 +504,9 @@ extern void artHeader_setLspecies(artHeader_t header, int64_t value,
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setBoxsizeInMpch(artHeader_t header, float boxsize);
+extern void
+artHeader_setBoxsizeInMpch(artHeader_t header, float boxsize);
+
 
 /** @} */
 
@@ -480,8 +540,8 @@ extern void artHeader_setBoxsizeInMpch(artHeader_t header, float boxsize);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_setFileEndianess(artHeader_t header,
-                                       endian_t fileEndianess);
+extern void
+artHeader_setFileEndianess(artHeader_t header, endian_t fileEndianess);
 
 /** @} */
 
@@ -501,7 +561,9 @@ extern void artHeader_setFileEndianess(artHeader_t header,
  *          string.  The calling function must not try to modify this
  *          string and it also not responsible for freeing it.
  */
-extern const char *artHeader_getHeaderString(const artHeader_t header);
+extern const char *
+artHeader_getHeaderString(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the current expansion factor.
@@ -511,7 +573,9 @@ extern const char *artHeader_getHeaderString(const artHeader_t header);
  *
  * @return  Returns the current expansion factor.
  */
-extern float artHeader_getAexpn(const artHeader_t header);
+extern float
+artHeader_getAexpn(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the initial expansion factor.
@@ -521,7 +585,9 @@ extern float artHeader_getAexpn(const artHeader_t header);
  *
  * @return  Returns the initial expansion factor.
  */
-extern float artHeader_getAexp0(const artHeader_t header);
+extern float
+artHeader_getAexp0(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the amplitude.
@@ -531,7 +597,9 @@ extern float artHeader_getAexp0(const artHeader_t header);
  *
  * @return  Returns the amplitude
  */
-extern float artHeader_getAmplt(const artHeader_t header);
+extern float
+artHeader_getAmplt(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the expansion time-step.
@@ -541,7 +609,9 @@ extern float artHeader_getAmplt(const artHeader_t header);
  *
  * @return  Returns the expansion time-step.
  */
-extern float artHeader_getAstep(const artHeader_t header);
+extern float
+artHeader_getAstep(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the current step number.
@@ -551,7 +621,9 @@ extern float artHeader_getAstep(const artHeader_t header);
  *
  * @return  Returns the current step number.
  */
-extern int artHeader_getIstep(const artHeader_t header);
+extern int
+artHeader_getIstep(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves partw.
@@ -561,7 +633,9 @@ extern int artHeader_getIstep(const artHeader_t header);
  *
  * @return  Returns partw.
  */
-extern float artHeader_getPartw(const artHeader_t header);
+extern float
+artHeader_getPartw(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves tintg.
@@ -571,7 +645,9 @@ extern float artHeader_getPartw(const artHeader_t header);
  *
  * @return  Returns tintg.
  */
-extern float artHeader_getTintg(const artHeader_t header);
+extern float
+artHeader_getTintg(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves ekin.
@@ -581,7 +657,9 @@ extern float artHeader_getTintg(const artHeader_t header);
  *
  * @return  Returns ekin.
  */
-extern float artHeader_getEkin(const artHeader_t header);
+extern float
+artHeader_getEkin(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves ekin1.
@@ -591,7 +669,9 @@ extern float artHeader_getEkin(const artHeader_t header);
  *
  * @return  Returns the ekin1.
  */
-extern float artHeader_getEkin1(const artHeader_t header);
+extern float
+artHeader_getEkin1(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves ekin2.
@@ -601,7 +681,9 @@ extern float artHeader_getEkin1(const artHeader_t header);
  *
  * @return  Returns ekin2.
  */
-extern float artHeader_getEkin2(const artHeader_t header);
+extern float
+artHeader_getEkin2(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves au0.
@@ -611,7 +693,9 @@ extern float artHeader_getEkin2(const artHeader_t header);
  *
  * @return  Returns au0.
  */
-extern float artHeader_getAu0(const artHeader_t header);
+extern float
+artHeader_getAu0(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves aeu0.
@@ -621,7 +705,9 @@ extern float artHeader_getAu0(const artHeader_t header);
  *
  * @return  Returns aeu0.
  */
-extern float artHeader_getAeu0(const artHeader_t header);
+extern float
+artHeader_getAeu0(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the dimension of the finest grid.
@@ -631,7 +717,9 @@ extern float artHeader_getAeu0(const artHeader_t header);
  *
  * @return  Returns the dimension of the finest grid.
  */
-extern int artHeader_getNrowc(const artHeader_t header);
+extern int
+artHeader_getNrowc(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the dimension of the coarsest grid.
@@ -641,7 +729,9 @@ extern int artHeader_getNrowc(const artHeader_t header);
  *
  * @return  Returns the dimension of the coarsest grid.
  */
-extern int artHeader_getNgridc(const artHeader_t header);
+extern int
+artHeader_getNgridc(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the number of particle species used.
@@ -651,7 +741,9 @@ extern int artHeader_getNgridc(const artHeader_t header);
  *
  * @return  Returns the number of particle species used.
  */
-extern int artHeader_getNspecies(const artHeader_t header);
+extern int
+artHeader_getNspecies(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves the random number seed of the initial conditions.
@@ -661,7 +753,9 @@ extern int artHeader_getNspecies(const artHeader_t header);
  *
  * @return  Returns the random number seed of the initial conditions.
  */
-extern int artHeader_getNseed(const artHeader_t header);
+extern int
+artHeader_getNseed(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves Omega_Matter_0.
@@ -671,7 +765,9 @@ extern int artHeader_getNseed(const artHeader_t header);
  *
  * @return  Returns Omega_Matter_0.
  */
-extern float artHeader_getOm0(const artHeader_t header);
+extern float
+artHeader_getOm0(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves Omega_Lambda_0.
@@ -681,7 +777,9 @@ extern float artHeader_getOm0(const artHeader_t header);
  *
  * @return  Returns Omega_Lambda_0.
  */
-extern float artHeader_getOml0(const artHeader_t header);
+extern float
+artHeader_getOml0(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves Hubble constant.
@@ -691,7 +789,9 @@ extern float artHeader_getOml0(const artHeader_t header);
  *
  * @return  Returns the Hubble constant in units of <tt>100 km/s/Mpc</tt>.
  */
-extern float artHeader_getHubble(const artHeader_t header);
+extern float
+artHeader_getHubble(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves wp5.
@@ -701,7 +801,9 @@ extern float artHeader_getHubble(const artHeader_t header);
  *
  * @return  Returns wp5.
  */
-extern float artHeader_getWp5(const artHeader_t header);
+extern float
+artHeader_getWp5(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves Omega_curv_0.
@@ -711,7 +813,9 @@ extern float artHeader_getWp5(const artHeader_t header);
  *
  * @return  Returns Omega_curv_0.
  */
-extern float artHeader_getOcurv(const artHeader_t header);
+extern float
+artHeader_getOcurv(const artHeader_t header);
+
 
 /**
  * @brief  Retrieves an extra value.
@@ -724,7 +828,9 @@ extern float artHeader_getOcurv(const artHeader_t header);
  *
  * @return  Returns the requested extra value.
  */
-extern float artHeader_getExtra(const artHeader_t header, int position);
+extern float
+artHeader_getExtra(const artHeader_t header, int position);
+
 
 /**
  * @brief  Retrieves the weight of a particular particle species.
@@ -738,7 +844,9 @@ extern float artHeader_getExtra(const artHeader_t header, int position);
  *
  * @return  Returns the weight of the requested particle species.
  */
-extern float artHeader_getWspecies(const artHeader_t header, int position);
+extern float
+artHeader_getWspecies(const artHeader_t header, int position);
+
 
 /**
  * @brief  Retrieves the number of particles of a particular species.
@@ -753,7 +861,9 @@ extern float artHeader_getWspecies(const artHeader_t header, int position);
  * @return  Returns the number of particles of the requested particle
  *          species.
  */
-extern int64_t artHeader_getLspecies(const artHeader_t header, int position);
+extern int64_t
+artHeader_getLspecies(const artHeader_t header, int position);
+
 
 /**
  * @brief  Retrieves the boxsize of the simulation.
@@ -764,7 +874,8 @@ extern int64_t artHeader_getLspecies(const artHeader_t header, int position);
  *
  * @return  Returns the size of the simulation box in <tt>Mpc/h</tt>.
  */
-extern double artHeader_getBoxsizeInMpch(const artHeader_t header);
+extern double
+artHeader_getBoxsizeInMpch(const artHeader_t header);
 
 /** @} */
 
@@ -783,7 +894,8 @@ extern double artHeader_getBoxsizeInMpch(const artHeader_t header);
  *
  * @return  Returns the total number of particles.
  */
-extern uint64_t artHeader_getNumParticlesTotal(const artHeader_t header);
+extern uint64_t
+artHeader_getNumParticlesTotal(const artHeader_t header);
 
 /**
  * @brief  Retrieves the factor to convert file weights to proper
@@ -797,7 +909,8 @@ extern uint64_t artHeader_getNumParticlesTotal(const artHeader_t header);
  *          ART file need to be multiplied to convert them to masses in
  *          units of <tt>M_sun/h</tt>.
  */
-extern double artHeader_getFactorFileWeightToMsunh(const artHeader_t header);
+extern double
+artHeader_getFactorFileWeightToMsunh(const artHeader_t header);
 
 /**
  * @brief  Retrieves the factor to convert file position to proper
@@ -810,7 +923,8 @@ extern double artHeader_getFactorFileWeightToMsunh(const artHeader_t header);
  * @return  Returns the factor with which the particles positions need
  *          to be multipled to convert them to <tt>Mpc/h</tt>.
  */
-extern double artHeader_getFactorFilePositionToMpch(const artHeader_t header);
+extern double
+artHeader_getFactorFilePositionToMpch(const artHeader_t header);
 
 /**
  * @brief  Retrieves the factor to convert file velocities to proper
@@ -823,7 +937,8 @@ extern double artHeader_getFactorFilePositionToMpch(const artHeader_t header);
  * @return  Returns the factor with which the particles velocities need
  *          to be multiplied to convert them to <tt>km/s</tt>.
  */
-extern double artHeader_getFactorFileVelocityToKms(const artHeader_t header);
+extern double
+artHeader_getFactorFileVelocityToKms(const artHeader_t header);
 
 /**
  * @brief  Retrievs the endianess of the file.
@@ -834,7 +949,8 @@ extern double artHeader_getFactorFileVelocityToKms(const artHeader_t header);
  *
  * @return  Returns the endianess of the file.
  */
-extern endian_t artHeader_getFileEndianess(const artHeader_t header);
+extern endian_t
+artHeader_getFileEndianess(const artHeader_t header);
 
 /** @} */
 
@@ -858,7 +974,9 @@ extern endian_t artHeader_getFileEndianess(const artHeader_t header);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_read(artHeader_t header, const char *headerFileName);
+extern void
+artHeader_read(artHeader_t header, const char *headerFileName);
+
 
 /**
  * @brief  Writes a given ART header object to a file.
@@ -875,7 +993,9 @@ extern void artHeader_read(artHeader_t header, const char *headerFileName);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_write(artHeader_t header, const char *headerFileName);
+extern void
+artHeader_write(artHeader_t header, const char *headerFileName);
+
 
 /**
  * @brief  Prints a formatted ASCII version of the header.
@@ -894,9 +1014,13 @@ extern void artHeader_write(artHeader_t header, const char *headerFileName);
  *
  * @return  Returns nothing.
  */
-extern void artHeader_prettyPrint(const artHeader_t header, const char *prefix,
-                                  FILE *f);
+extern void
+artHeader_prettyPrint(const artHeader_t header,
+                      const char        *prefix,
+                      FILE              *f);
+
 
 /** @} */
+
 
 #endif

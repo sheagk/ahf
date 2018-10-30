@@ -5,6 +5,7 @@
 #ifndef DIEDIEDIE_H
 #define DIEDIEDIE_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -14,9 +15,11 @@
  *         where it failed.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
 #include <stdio.h>
+
 
 /*--- Exported defines --------------------------------------------------*/
 
@@ -29,13 +32,14 @@
  * performed, if specific things are required they should have been
  * registered with <b>at_exit</b>(3).
  */
-#define diediedie(errCode)                                                     \
-    {                                                                          \
-        fprintf(stderr,                                                        \
-                "FATAL:  Deathtrap in %s() at %s:%i\n"                         \
-                "Terminating with error code: %i\n\n",                         \
-                __func__, __FILE__, __LINE__, (errCode));                      \
-        exit(errCode);                                                         \
-    }
+#define diediedie(errCode)                                \
+	{                                                     \
+		fprintf(stderr,                                   \
+		        "FATAL:  Deathtrap in %s() at %s:%i\n"    \
+		        "Terminating with error code: %i\n\n",    \
+		        __func__, __FILE__, __LINE__, (errCode)); \
+		exit(errCode);                                    \
+	}
+
 
 #endif

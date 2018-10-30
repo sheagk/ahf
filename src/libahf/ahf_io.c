@@ -923,6 +923,11 @@ WriteHalosLegacy(FILE          *fout,
 		COLUMN_INFO(fout, "mean_z_gas", column);
 		COLUMN_INFO(fout, "mean_z_star", column);
 #    endif
+#ifdef AHFexciseSubhaloStars
+     COLUMN_INFO(fout, "n_star_excised", column);
+     COLUMN_INFO(fout, "M_star_excised", column);
+     COLUMN_INFO(fout, "mean_z_star_excised", column);
+#endif
 #  endif /* GAS_PARTICLES */
 		fprintf(fout, "\n");
    }

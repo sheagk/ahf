@@ -7,24 +7,27 @@
  * Provides functions for reading and writing CUBEP3M files.
  */
 
+
 /***********************************************************************
  *    Includes                                                         *
  ***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 #ifdef WITH_MPI
-#include <mpi.h>
+#  include <mpi.h>
 #endif
 
-#include "io_cubep3m_def.h"
 #include "io_cubep3m_header_def.h"
+#include "io_cubep3m_def.h"
 #include "io_file.h"
 #include "io_logging.h"
+
 
 /***********************************************************************
  *    Global defines, structure definitions and typedefs               *
  ***********************************************************************/
+
 
 /***********************************************************************
  *    Prototypes of global functions                                   *
@@ -53,9 +56,13 @@
  * \return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_cubep3m_t io_cubep3m_open(io_logging_t log, char *fname,
-                                    io_file_swap_t swapped, io_file_mode_t mode,
-                                    uint32_t reader);
+extern io_cubep3m_t
+io_cubep3m_open(io_logging_t   log,
+                char           *fname,
+                io_file_swap_t swapped,
+                io_file_mode_t mode,
+                uint32_t       reader);
+
 
 /**
  * \brief This will close and finalize an CUBEP3M file.
@@ -66,7 +73,10 @@ extern io_cubep3m_t io_cubep3m_open(io_logging_t log, char *fname,
  *
  * \return Nothing.
  */
-extern void io_cubep3m_close(io_logging_t log, io_cubep3m_t *f);
+extern void
+io_cubep3m_close(io_logging_t log,
+                 io_cubep3m_t *f);
+
 
 /**
  * \brief Initializes an opened for reading CUBEP3M file.
@@ -76,7 +86,10 @@ extern void io_cubep3m_close(io_logging_t log, io_cubep3m_t *f);
  *
  * \return Nothing.
  */
-extern void io_cubep3m_init(io_logging_t log, io_cubep3m_t f);
+extern void
+io_cubep3m_init(io_logging_t log,
+                io_cubep3m_t f);
+
 
 /**
  * \brief Sets the number of files the cubep3m set consists of.
@@ -87,8 +100,11 @@ extern void io_cubep3m_init(io_logging_t log, io_cubep3m_t f);
  *
  * \return  Nothing.
  */
-extern void io_cubep3m_init_num_files(io_logging_t log, io_cubep3m_t f,
-                                      int num_files);
+extern void
+io_cubep3m_init_num_files(io_logging_t log,
+                          io_cubep3m_t f,
+                          int          num_files);
+
 
 /**
  * \brief Reads from an opened CUBEP3M file all particle information and
@@ -117,9 +133,13 @@ extern void io_cubep3m_init_num_files(io_logging_t log, io_cubep3m_t f,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_cubep3m_readpart(io_logging_t log, io_cubep3m_t f,
-                                    uint64_t pskip, uint64_t pread,
-                                    io_file_strg_struct_t strg);
+extern uint64_t
+io_cubep3m_readpart(io_logging_t          log,
+                    io_cubep3m_t          f,
+                    uint64_t              pskip,
+                    uint64_t              pread,
+                    io_file_strg_struct_t strg);
+
 
 /**
  * \brief Reads from an opened CUBEP3M file all particle information
@@ -138,9 +158,13 @@ extern uint64_t io_cubep3m_readpart(io_logging_t log, io_cubep3m_t f,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_cubep3m_readpart_raw(io_logging_t log, io_cubep3m_t f,
-                                        uint64_t pskip, uint64_t pread,
-                                        io_file_strg_struct_t strg);
+extern uint64_t
+io_cubep3m_readpart_raw(io_logging_t          log,
+                        io_cubep3m_t          f,
+                        uint64_t              pskip,
+                        uint64_t              pread,
+                        io_file_strg_struct_t strg);
+
 
 /**
  * \brief Generic get-function to retrieve things from the file header.
@@ -152,8 +176,12 @@ extern uint64_t io_cubep3m_readpart_raw(io_logging_t log, io_cubep3m_t f,
  *
  * \return True if the parameter could be read, false if not.
  */
-extern bool io_cubep3m_get(io_logging_t log, io_cubep3m_t f, io_file_get_t what,
-                           void *res);
+extern bool
+io_cubep3m_get(io_logging_t  log,
+               io_cubep3m_t  f,
+               io_file_get_t what,
+               void          *res);
+
 
 /**
  * \brief Writes the file information to the logfile.
@@ -163,7 +191,9 @@ extern bool io_cubep3m_get(io_logging_t log, io_cubep3m_t f, io_file_get_t what,
  *
  * \return Nothing.
  */
-extern void io_cubep3m_log(io_logging_t log, io_cubep3m_t f);
+extern void
+io_cubep3m_log(io_logging_t log, io_cubep3m_t f);
+
 
 /**
  * \brief Does the scaling of particles.
@@ -180,10 +210,13 @@ extern void io_cubep3m_log(io_logging_t log, io_cubep3m_t f);
  * \return Returns the number of scaled particles, which should be
  *         exactly particles_read.
  */
-extern uint64_t io_cubep3m_scale_particles(io_logging_t log, double boxsize,
-                                           double expansion, double lunit,
-                                           double vunit,
-                                           uint64_t particles_read,
-                                           io_file_strg_struct_t strg);
+extern uint64_t
+io_cubep3m_scale_particles(io_logging_t          log,
+                           double                boxsize,
+                           double                expansion,
+                           double                lunit,
+                           double                vunit,
+                           uint64_t              particles_read,
+                           io_file_strg_struct_t strg);
 
 #endif /* IO_CUBEP3M_H */

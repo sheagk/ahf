@@ -7,27 +7,30 @@
  * Provides functions for reading and writing TIPSY files.
  */
 
+
 /***********************************************************************\
- *    Includes                                                         *
+ *    Includes                                                         * 
 \***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 #ifdef WITH_MPI
-#include <mpi.h>
+#	include <mpi.h>
 #endif
 
+#include "io_tipsy_header_def.h"
+#include "io_tipsy_def.h"
 #include "io_file.h"
 #include "io_logging.h"
-#include "io_tipsy_def.h"
-#include "io_tipsy_header_def.h"
+
 
 /***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
+ *    Global defines, structure definitions and typedefs               * 
 \***********************************************************************/
 
+
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -53,9 +56,12 @@
  * \return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_tipsy_t io_tipsy_open(io_logging_t log, char *fname,
-                                io_file_swap_t swapped, io_file_mode_t mode,
-                                uint32_t reader);
+extern io_tipsy_t
+io_tipsy_open(io_logging_t log,
+               char *fname,
+               io_file_swap_t swapped,
+               io_file_mode_t mode,
+               uint32_t reader);
 
 /**
  * \brief This will close and finalize an TIPSY file.
@@ -66,7 +72,9 @@ extern io_tipsy_t io_tipsy_open(io_logging_t log, char *fname,
  *
  * \return Nothing.
  */
-extern void io_tipsy_close(io_logging_t log, io_tipsy_t *f);
+extern void
+io_tipsy_close(io_logging_t log,
+                io_tipsy_t *f);
 
 /**
  * \brief Initializes an opened for reading TIPSY file.
@@ -76,9 +84,11 @@ extern void io_tipsy_close(io_logging_t log, io_tipsy_t *f);
  *
  * \return Nothing.
  */
-extern void io_tipsy_init(io_logging_t log, io_tipsy_t f);
+extern void
+io_tipsy_init(io_logging_t log,
+               io_tipsy_t f);
 
-/**
+/**                          
  * \brief Reads from an opened TIPSY file all particle information and
  *        converts them to AMIGA units.
  *
@@ -87,7 +97,7 @@ extern void io_tipsy_init(io_logging_t log, io_tipsy_t f);
  * pointer to beginning of the particle array, which must be large
  * enough to accomodate all particles (can be check by evaluating the
  * number of particles given in the file header).
- *
+ * 
  * The particle structure can be arbitrarily arranged, the function only
  * needs to know where within in the structure the components of
  * position and momentum and the weight are stored and how large the
@@ -99,17 +109,20 @@ extern void io_tipsy_init(io_logging_t log, io_tipsy_t f);
  * \param pskip  Number of particles to skip.
  * \param pread  Number of particles to read.
  * \param strg   The abstract description of the external storage.
- *
+ *                                 
  * \return Returns the number of particles read from the file. If this
  *         is not the number of particles given as the pread parameter,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_tipsy_readpart(io_logging_t log, io_tipsy_t f,
-                                  uint64_t pskip, uint64_t pread,
-                                  io_file_strg_struct_t strg);
+extern uint64_t
+io_tipsy_readpart(io_logging_t log,
+                   io_tipsy_t f,
+                   uint64_t pskip,
+                   uint64_t pread,
+                   io_file_strg_struct_t strg);
 
-/**
+/**                          
  * \brief Reads from an opened TIPSY file all particle information
  *        without converting to AMIGA units.
  *
@@ -120,15 +133,18 @@ extern uint64_t io_tipsy_readpart(io_logging_t log, io_tipsy_t f,
  * \param pskip  Number of particles to skip.
  * \param pread  Number of particles to read.
  * \param strg   The abstract description of the external storage.
- *
+ *                                 
  * \return Returns the number of particles read from the file. If this
  *         is not the number of particles given as the pread parameter,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_tipsy_readpart_raw(io_logging_t log, io_tipsy_t f,
-                                      uint64_t pskip, uint64_t pread,
-                                      io_file_strg_struct_t strg);
+extern uint64_t
+io_tipsy_readpart_raw(io_logging_t log,
+                       io_tipsy_t f,
+                       uint64_t pskip,
+                       uint64_t pread,
+                       io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to a TIPSY binary file
@@ -146,9 +162,12 @@ extern uint64_t io_tipsy_readpart_raw(io_logging_t log, io_tipsy_t f,
  *         should correspond to the number of particles given in the
  *         header.
  */
-extern uint64_t io_tipsy_writepart(io_logging_t log, io_tipsy_t f,
-                                   uint64_t pskip, uint64_t pwrite,
-                                   io_file_strg_struct_t strg);
+extern uint64_t
+io_tipsy_writepart(io_logging_t log,
+                    io_tipsy_t f,
+                    uint64_t pskip,
+                    uint64_t pwrite,
+                    io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to a TIPSY binary file in an ordered
@@ -170,10 +189,13 @@ extern uint64_t io_tipsy_writepart(io_logging_t log, io_tipsy_t f,
  *         header.
  */
 
-extern uint64_t io_tipsy_writepart_ord(io_logging_t log, io_tipsy_t f,
-                                       uint64_t pskip, uint64_t pwrite,
-                                       void *nxt_part,
-                                       io_file_strg_struct_t strg);
+extern uint64_t
+io_tipsy_writepart_ord(io_logging_t log,
+                        io_tipsy_t f,
+                        uint64_t pskip,
+                        uint64_t pwrite,
+                        void *nxt_part,
+                        io_file_strg_struct_t strg);
 
 /**
  * \brief Generic get-function to retrieve things from the file header.
@@ -185,8 +207,12 @@ extern uint64_t io_tipsy_writepart_ord(io_logging_t log, io_tipsy_t f,
  *
  * \return True if the parameter could be read, false if not.
  */
-extern bool io_tipsy_get(io_logging_t log, io_tipsy_t f, io_file_get_t what,
-                         void *res);
+extern bool
+io_tipsy_get(io_logging_t log,
+              io_tipsy_t f,
+              io_file_get_t what,
+              void *res);
+
 
 /**
  * \brief Writes the file information to the logfile.
@@ -196,7 +222,8 @@ extern bool io_tipsy_get(io_logging_t log, io_tipsy_t f, io_file_get_t what,
  *
  * \return Nothing.
  */
-extern void io_tipsy_log(io_logging_t log, io_tipsy_t f);
+extern void
+io_tipsy_log(io_logging_t log, io_tipsy_t f);
 
 /**
  * \brief Resets the position and weight scales to given values
@@ -208,8 +235,11 @@ extern void io_tipsy_log(io_logging_t log, io_tipsy_t f);
  * \param weightscale  The new scale to translate from TIPSY file units
  *                     to Msun.
  */
-extern void io_tipsy_resetscale(io_logging_t log, io_tipsy_t f, double posscale,
-                                double weightscale);
+extern void
+io_tipsy_resetscale(io_logging_t log,
+                     io_tipsy_t f,
+                     double posscale,
+                     double weightscale);
 
 /**
  * \brief Does the scaling of particles.
@@ -227,12 +257,18 @@ extern void io_tipsy_resetscale(io_logging_t log, io_tipsy_t f, double posscale,
  * \return Returns the number of scaled particles, which should be
  *         exactly particles_read.
  */
-extern uint64_t io_tipsy_scale_particles(io_logging_t log, double maxpos[],
-                                         double minpos[], double boxsize,
-                                         double expansion, double posscale,
-                                         double vunit, double eunit,
-                                         double mmass, uint64_t particles_read,
-                                         io_file_strg_struct_t strg);
+extern uint64_t
+io_tipsy_scale_particles(io_logging_t log,
+                          double maxpos[],
+                          double minpos[],
+                          double boxsize,
+                          double expansion,
+                          double posscale,
+                          double vunit,
+                          double eunit,
+                          double mmass,
+                          uint64_t particles_read,
+                          io_file_strg_struct_t strg);
 
 #ifdef WITH_MPI
 /**
@@ -249,10 +285,16 @@ extern uint64_t io_tipsy_scale_particles(io_logging_t log, double maxpos[],
  *
  * \return Nothing.
  */
-extern void io_tipsy_scale_global(io_logging_t log, MPI_Comm comm,
-                                  double *maxpos, double *minpos, double *mmass,
-                                  double *minweight, double *maxweight,
-                                  double *sumweight);
+extern void
+io_tipsy_scale_global(io_logging_t log,
+                     MPI_Comm comm,
+                     double *maxpos,
+                     double *minpos,
+                     double *mmass,
+                     double *minweight,
+                     double *maxweight,
+                     double *sumweight);
 #endif
+
 
 #endif /* IO_TIPSY_H */

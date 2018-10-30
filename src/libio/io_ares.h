@@ -9,25 +9,28 @@
  * Provides functions for reading and writing AMIGA restart (ARES) files.
  */
 
-/***********************************************************************\
- *    Includes                                                         *
-\***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
 
-#include "io_ares_def.h"
+/***********************************************************************\
+ *    Includes                                                         * 
+\***********************************************************************/
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "io_ares_header_def.h"
+#include "io_ares_def.h"
 #include "io_file.h"
 #include "io_file_aux.h"
 #include "io_logging.h"
 
-/***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
-\***********************************************************************/
 
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Global defines, structure definitions and typedefs               * 
+\***********************************************************************/
+
+
+/***********************************************************************\
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -53,9 +56,12 @@
  * \return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_ares_t io_ares_open(io_logging_t log, char *fname,
-                              io_file_swap_t swapped, io_file_mode_t mode,
-                              uint32_t reader);
+extern io_ares_t
+io_ares_open(io_logging_t log,
+             char *fname,
+             io_file_swap_t swapped,
+             io_file_mode_t mode,
+             uint32_t reader);
 
 /**
  * \brief This will close and finalize an ARES file.
@@ -66,7 +72,9 @@ extern io_ares_t io_ares_open(io_logging_t log, char *fname,
  *
  * \return Nothing.
  */
-extern void io_ares_close(io_logging_t log, io_ares_t *f);
+extern void
+io_ares_close(io_logging_t log,
+              io_ares_t *f);
 
 /**
  * \brief Initializes an opened for reading ARES file.
@@ -76,7 +84,9 @@ extern void io_ares_close(io_logging_t log, io_ares_t *f);
  *
  * \return Nothing.
  */
-extern void io_ares_init(io_logging_t log, io_ares_t f);
+extern void
+io_ares_init(io_logging_t log,
+             io_ares_t f);
 
 /**
  * \brief Reads from an opened ARES file all particle information.
@@ -101,8 +111,12 @@ extern void io_ares_init(io_logging_t log, io_ares_t f);
  *         went wrong. The calling function hence should check the
  *         return value.
  */
-extern uint64_t io_ares_readpart(io_logging_t log, io_ares_t f, uint64_t pskip,
-                                 uint64_t pread, io_file_strg_struct_t strg);
+extern uint64_t
+io_ares_readpart(io_logging_t log,
+                 io_ares_t f,
+                 uint64_t pskip,
+                 uint64_t pread,
+                 io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to an ARES binary file
@@ -120,8 +134,12 @@ extern uint64_t io_ares_readpart(io_logging_t log, io_ares_t f, uint64_t pskip,
  *         should correspond to the number of particles given in the
  *         header.
  */
-extern uint64_t io_ares_writepart(io_logging_t log, io_ares_t f, uint64_t pskip,
-                                  uint64_t pwrite, io_file_strg_struct_t strg);
+extern uint64_t
+io_ares_writepart(io_logging_t log,
+                  io_ares_t f,
+                  uint64_t pskip,
+                  uint64_t pwrite,
+                  io_file_strg_struct_t strg);
 
 /**
  * \brief Writes the particles to an ARES binary file in an ordered
@@ -142,10 +160,13 @@ extern uint64_t io_ares_writepart(io_logging_t log, io_ares_t f, uint64_t pskip,
  *         should correspond to the number of particles given in the
  *         header.
  */
-extern uint64_t io_ares_writepart_ord(io_logging_t log, io_ares_t f,
-                                      uint64_t pskip, uint64_t pwrite,
-                                      void *nxt_part,
-                                      io_file_strg_struct_t strg);
+extern uint64_t
+io_ares_writepart_ord(io_logging_t log,
+                      io_ares_t f,
+                      uint64_t pskip,
+                      uint64_t pwrite,
+                      void *nxt_part,
+                      io_file_strg_struct_t strg);
 
 /**
  * \brief Generic get-function to retrieve things from the file header.
@@ -157,8 +178,11 @@ extern uint64_t io_ares_writepart_ord(io_logging_t log, io_ares_t f,
  *
  * \return True if the parameter could be read, false if not.
  */
-extern bool io_ares_get(io_logging_t log, io_ares_t f, io_file_get_t what,
-                        void *res);
+extern bool
+io_ares_get(io_logging_t log,
+            io_ares_t f,
+            io_file_get_t what,
+            void *res);
 
 /**
  * \brief Generic get-function to set things in the file header.
@@ -170,8 +194,11 @@ extern bool io_ares_get(io_logging_t log, io_ares_t f, io_file_get_t what,
  *
  * \return True if the parameter could be set, false if not.
  */
-extern bool io_ares_set(io_logging_t log, io_ares_t f, io_file_get_t what,
-                        void *res);
+extern bool
+io_ares_set(io_logging_t log,
+            io_ares_t f,
+            io_file_get_t what,
+            void *res);
 
 /**
  * \brief Writes the file information to the logfile.
@@ -181,6 +208,8 @@ extern bool io_ares_set(io_logging_t log, io_ares_t f, io_file_get_t what,
  *
  * \return Nothing.
  */
-extern void io_ares_log(io_logging_t log, io_ares_t f);
+extern void
+io_ares_log(io_logging_t log, io_ares_t f);
+
 
 #endif /* IO_ARES_H */

@@ -5,6 +5,7 @@
 #ifndef ENDIAN_H
 #define ENDIAN_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,10 +14,12 @@
  * @brief  This file provides functionality to deal with endianess.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
 #include <stdbool.h>
 #include <stdio.h>
+
 
 /*--- Typedefs ----------------------------------------------------------*/
 
@@ -24,11 +27,12 @@
  * @brief The possible endianesses.
  */
 typedef enum {
-    /** That would be little endian. */
-    ENDIAN_LITTLE,
-    /** That would be big endian. */
-    ENDIAN_BIG
+	/** That would be little endian. */
+	ENDIAN_LITTLE,
+	/** That would be big endian. */
+	ENDIAN_BIG
 } endian_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -43,7 +47,9 @@ typedef enum {
  *
  * @return  Returns the system endianess.
  */
-extern endian_t endian_getSystemEndianess(void);
+extern endian_t
+endian_getSystemEndianess(void);
+
 
 /**
  * @brief  Checks whether the system is little endian.
@@ -53,7 +59,9 @@ extern endian_t endian_getSystemEndianess(void);
  * @return  Returns true if the system is little endian, false
  *          otherwise.
  */
-extern bool endian_systemIsLittle(void);
+extern bool
+endian_systemIsLittle(void);
+
 
 /**
  * @brief  Checks whether the system is big endian.
@@ -63,7 +71,9 @@ extern bool endian_systemIsLittle(void);
  * @return  Returns true if the system is big endian, false
  *          otherwise.
  */
-extern bool endian_systemIsBig(void);
+extern bool
+endian_systemIsBig(void);
+
 
 /** @} */
 
@@ -72,6 +82,7 @@ extern bool endian_systemIsBig(void);
  *
  * @{
  */
+
 
 /**
  * @brief  Checks for the endianess of a file using block delimiter.
@@ -118,7 +129,9 @@ extern bool endian_systemIsBig(void);
  *
  * @return  Returns the endianess of the file.
  */
-extern endian_t endian_getFileEndianessByBlock(const char *fname);
+extern endian_t
+endian_getFileEndianessByBlock(const char *fname);
+
 
 /**
  * @brief  Checks for the endianess of a file using block delimiter.
@@ -139,7 +152,9 @@ extern endian_t endian_getFileEndianessByBlock(const char *fname);
  *
  * @return  Returns the endianess of the file.
  */
-extern endian_t endian_getFileEndianessByBlockF(FILE *f);
+extern endian_t
+endian_getFileEndianessByBlockF(FILE *f);
+
 
 /**
  * @brief  Checks whether a file is little endian using block delimiter.
@@ -152,7 +167,9 @@ extern endian_t endian_getFileEndianessByBlockF(FILE *f);
  * @return  Returns true if the file is written in little endian, false
  *          otherwise.
  */
-extern bool endian_fileIsLittleByBlock(const char *fname);
+extern bool
+endian_fileIsLittleByBlock(const char *fname);
+
 
 /**
  * @brief  Checks whether a file is big endian using block delimiter.
@@ -165,7 +182,9 @@ extern bool endian_fileIsLittleByBlock(const char *fname);
  * @return  Returns true if the file is written in big endian, false
  *          otherwise.
  */
-extern bool endian_fileIsBigByBlock(const char *fname);
+extern bool
+endian_fileIsBigByBlock(const char *fname);
+
 
 /**
  * @brief  Checks whether a file is little endian using block delimiter.
@@ -180,7 +199,9 @@ extern bool endian_fileIsBigByBlock(const char *fname);
  * @return  Returns true if the file is written in little endian, false
  *          otherwise.
  */
-extern bool endian_fileIsLittleByBlockF(FILE *f);
+extern bool
+endian_fileIsLittleByBlockF(FILE *f);
+
 
 /**
  * @brief  Checks whether a file is big endian using block delimiter.
@@ -195,7 +216,9 @@ extern bool endian_fileIsLittleByBlockF(FILE *f);
  * @return  Returns true if the file is written in big endian, false
  *          otherwise.
  */
-extern bool endian_fileIsBigByBlockF(FILE *f);
+extern bool
+endian_fileIsBigByBlockF(FILE *f);
+
 
 /** @} */
 
@@ -214,9 +237,11 @@ extern bool endian_fileIsBigByBlockF(FILE *f);
  * @return  Returns a constant string holding a string version of the
  *          endianess.
  */
-extern const char *endian_toString(const endian_t endian);
+extern const char *
+endian_toString(const endian_t endian);
 
 /** @} */
+
 
 /*--- Doxygen group definitions -----------------------------------------*/
 
@@ -225,5 +250,6 @@ extern const char *endian_toString(const endian_t endian);
  * @ingroup libutilMisc
  * @brief Provides functionality to deal with endian issues.
  */
+
 
 #endif

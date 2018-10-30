@@ -5,6 +5,7 @@
 #ifndef ART_H
 #define ART_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,12 +14,14 @@
  * @brief  This file provides the interface to ART files.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
-#include "artHeader.h"
-#include "stai.h"
 #include "util_config.h"
+#include "artHeader.h"
 #include <stdint.h>
 #include <stdio.h>
+#include "stai.h"
+
 
 /*--- Exported defines --------------------------------------------------*/
 
@@ -38,20 +41,22 @@
  */
 #define ART_USE_DEFAULT_SUFFIX NULL
 
+
 /*--- Typedefs ----------------------------------------------------------*/
 
 /** @brief  Gives the mode with which the files are opened. */
 typedef enum {
-    /**
-     * @brief  This is for writing, corresponds to "ab".
-     *
-     * This should be used to append to an existing file.  The file will
-     * be created if it does not exist.
-     */
-    ART_MODE_WRITE,
-    /** @brief  This is for writing, corresponds to "rb".  */
-    ART_MODE_READ
+	/**
+	 * @brief  This is for writing, corresponds to "ab".
+	 *
+	 * This should be used to append to an existing file.  The file will
+	 * be created if it does not exist.
+	 */
+	ART_MODE_WRITE,
+	/** @brief  This is for writing, corresponds to "rb".  */
+	ART_MODE_READ
 } artMode_t;
+
 
 /*--- ADT handle --------------------------------------------------------*/
 
@@ -59,6 +64,7 @@ typedef enum {
  * @brief  Defines the handle for an ART object.
  */
 typedef struct art_struct *art_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -100,8 +106,9 @@ typedef struct art_struct *art_t;
  *
  * @return  Returns a properly set up ART file object.
  */
-extern art_t art_new(const char *pathToFiles, const char *fileNameSuffix,
-                     int numFiles);
+extern art_t
+art_new(const char *pathToFiles, const char *fileNameSuffix, int numFiles);
+
 
 /**
  * @brief  Deletes an ART file object.
@@ -116,7 +123,8 @@ extern art_t art_new(const char *pathToFiles, const char *fileNameSuffix,
  *
  * @return  Returns nothing.
  */
-extern void art_del(art_t *art);
+extern void
+art_del(art_t *art);
 
 /** @} */
 
@@ -147,7 +155,8 @@ extern void art_del(art_t *art);
  *
  * @return  Returns nothing.
  */
-extern void art_setTruncateNrowc(art_t art, bool value);
+extern void
+art_setTruncateNrowc(art_t art, bool value);
 
 /** @} */
 
@@ -166,7 +175,8 @@ extern void art_setTruncateNrowc(art_t art, bool value);
  * @return  Returns the number of data files (PMcrsX.DAT) in this ART
  *          file object.
  */
-extern int art_getNumFiles(const art_t art);
+extern int
+art_getNumFiles(const art_t art);
 
 /**
  * @brief  Retrieves the trunctation mode of @c nrwoc.
@@ -179,7 +189,8 @@ extern int art_getNumFiles(const art_t art);
  *          calculation of the page size and @c false, if the value from
  *          the header should be used as-is.
  */
-extern bool art_getTruncateNrowc(const art_t art);
+extern bool
+art_getTruncateNrowc(const art_t art);
 
 /**
  * @brief  Gets the name of the header file associated with this file.
@@ -190,7 +201,8 @@ extern bool art_getTruncateNrowc(const art_t art);
  * @return  Returns the name of the header file associated with this
  *          file.  The memory region is private.
  */
-extern const char *art_getHeaderFileName(const art_t art);
+extern const char *
+art_getHeaderFileName(const art_t art);
 
 /**
  * @brief  Retrieves the name of a given data file.
@@ -204,7 +216,8 @@ extern const char *art_getHeaderFileName(const art_t art);
  *          points to a private memory region and must only be used
  *          read-only.
  */
-extern const char *art_getDataFileName(const art_t art, int numFile);
+extern const char *
+art_getDataFileName(const art_t art, int numFile);
 
 /**
  * @brief  Retrieves a handle to the header associated with the file.
@@ -215,7 +228,9 @@ extern const char *art_getDataFileName(const art_t art, int numFile);
  * @return  Returns a handle of the header object associated with this
  *          file.  This is the private handle of the file object.
  */
-extern artHeader_t art_getHeaderHandle(const art_t art);
+extern artHeader_t
+art_getHeaderHandle(const art_t art);
+
 
 /** @} */
 
@@ -224,6 +239,7 @@ extern artHeader_t art_getHeaderHandle(const art_t art);
  *
  * @{
  */
+
 
 /**
  * @brief  Attaches an ART header object to an ART file object.
@@ -242,7 +258,9 @@ extern artHeader_t art_getHeaderHandle(const art_t art);
  *
  * @return  Returns nothing.
  */
-extern void art_attachHeader(art_t art, artHeader_t header);
+extern void
+art_attachHeader(art_t art, artHeader_t header);
+
 
 /**
  * @brief  Reads a header from the file set.
@@ -255,7 +273,8 @@ extern void art_attachHeader(art_t art, artHeader_t header);
  *
  * @return  Returns nothing.
  */
-extern void art_attachHeaderFromFile(art_t art);
+extern void
+art_attachHeaderFromFile(art_t art);
 
 /**
  * @brief  Prints a quick summary of the file to a stream.
@@ -273,7 +292,9 @@ extern void art_attachHeaderFromFile(art_t art);
  *
  * @return  Returns nothing.
  */
-extern void art_prettyPrint(const art_t art, const char *prefix, FILE *f);
+extern void
+art_prettyPrint(const art_t art, const char *prefix, FILE *f);
+
 
 /** @} */
 
@@ -308,7 +329,9 @@ extern void art_prettyPrint(const art_t art, const char *prefix, FILE *f);
  *
  * @return  Returns nothing.
  */
-extern void art_open(art_t art, artMode_t mode, int numFile);
+extern void
+art_open(art_t art, artMode_t mode, int numFile);
+
 
 /**
  * @brief  This will create an empty file with the right size in which
@@ -325,7 +348,9 @@ extern void art_open(art_t art, artMode_t mode, int numFile);
  *
  * @return  Returns nothing.
  */
-extern void art_createEmptyFile(const art_t art, int numFile);
+extern void
+art_createEmptyFile(const art_t art, int numFile);
+
 
 /**
  * @brief  Will close the currently opened PMcrsX.DAT file.
@@ -338,7 +363,9 @@ extern void art_createEmptyFile(const art_t art, int numFile);
  *
  * @return  Returns nothing.
  */
-extern void art_close(art_t art);
+extern void
+art_close(art_t art);
+
 
 /** @} */
 
@@ -405,8 +432,13 @@ extern void art_close(art_t art);
  * @sa  art_open(), art_createEmptyFile(), art_close(), art_write(),
  *      art_readFromPage()
  */
-extern uint64_t art_writeToPage(art_t art, int pageNumber, uint64_t pSkip,
-                                uint64_t pWrite, stai_t *data);
+extern uint64_t
+art_writeToPage(art_t    art,
+                int      pageNumber,
+                uint64_t pSkip,
+                uint64_t pWrite,
+                stai_t   *data);
+
 
 /**
  * @brief  Writes a set of particles to a file.
@@ -439,8 +471,13 @@ extern uint64_t art_writeToPage(art_t art, int pageNumber, uint64_t pSkip,
  * @sa  art_open(), art_createEmptyFile(), art_close(),
  *      art_readFromFile()
  */
-extern uint64_t art_writeToFile(art_t art, int fileNumber, uint64_t pSkip,
-                                uint64_t pWrite, stai_t *data);
+extern uint64_t
+art_writeToFile(art_t    art,
+                int      fileNumber,
+                uint64_t pSkip,
+                uint64_t pWrite,
+                stai_t   *data);
+
 
 /**
  * @brief  Writes a set of particles to a file set.
@@ -462,8 +499,12 @@ extern uint64_t art_writeToFile(art_t art, int fileNumber, uint64_t pSkip,
  *
  * @sa  art_createEmptyFile(), art_read()
  */
-extern uint64_t art_write(art_t art, uint64_t pSkip, uint64_t pWrite,
-                          stai_t *data);
+extern uint64_t
+art_write(art_t    art,
+          uint64_t pSkip,
+          uint64_t pWrite,
+          stai_t   *data);
+
 
 /** @} */
 
@@ -477,6 +518,7 @@ extern uint64_t art_write(art_t art, uint64_t pSkip, uint64_t pWrite,
  *
  * @{
  */
+
 
 /**
  * @brief  Reads a page from the file.
@@ -516,8 +558,13 @@ extern uint64_t art_write(art_t art, uint64_t pSkip, uint64_t pWrite,
  *
  * @sa  art_open(), art_close(), art_WriteToPage().
  */
-extern uint64_t art_readFromPage(art_t art, int pageNumber, uint64_t pSkip,
-                                 uint64_t pRead, stai_t *data);
+extern uint64_t
+art_readFromPage(art_t    art,
+                 int      pageNumber,
+                 uint64_t pSkip,
+                 uint64_t pRead,
+                 stai_t   *data);
+
 
 /**
  * @brief  Reads a subset of particles from a specific data file.
@@ -547,8 +594,13 @@ extern uint64_t art_readFromPage(art_t art, int pageNumber, uint64_t pSkip,
  * @sa  art_open(), art_close(), art_write(), art_writeToFile(),
  *      art_WriteToPage(), art_read(), art_readFromPage()
  */
-extern uint64_t art_readFromFile(art_t art, int fileNumber, uint64_t pSkip,
-                                 uint64_t pRead, stai_t *data);
+extern uint64_t
+art_readFromFile(art_t    art,
+                 int      fileNumber,
+                 uint64_t pSkip,
+                 uint64_t pRead,
+                 stai_t   *data);
+
 
 /**
  * @brief  Read a subset of particles from the whole file set.
@@ -571,10 +623,15 @@ extern uint64_t art_readFromFile(art_t art, int fileNumber, uint64_t pSkip,
  * @sa  art_open(), art_close(), art_write(), art_writeToFile(),
  *      art_WriteToPage(), art_readFromFile(), art_readFromPage()
  */
-extern uint64_t art_read(art_t art, uint64_t pSkip, uint64_t pRead,
-                         stai_t *data);
+extern uint64_t
+art_read(art_t    art,
+         uint64_t pSkip,
+         uint64_t pRead,
+         stai_t   *data);
+
 
 /** @} */
+
 
 /*--- Doxygen group definitions -----------------------------------------*/
 
@@ -632,5 +689,6 @@ extern uint64_t art_read(art_t art, uint64_t pSkip, uint64_t pRead,
  * read/written, the buffer is accordingly smaller.
  *
  */
+
 
 #endif

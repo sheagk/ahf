@@ -7,20 +7,23 @@
  * Provides functions for reading in AMIGA parameter files.
  */
 
+
 /***********************************************************************\
- *    Includes                                                         *
+ *    Includes                                                         * 
 \***********************************************************************/
 #include "io_parameter_def.h"
 
+
 /***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
+ *    Global defines, structure definitions and typedefs               * 
 \***********************************************************************/
 
 /** The standard name for parameter file */
 #define IO_PARAMETER_FNAME "amiga.input"
 
+
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -39,7 +42,8 @@
  * \return Returns a structure holding the information present
  *         in the file. Might be NULL in the case of errors.
  */
-extern io_parameter_t io_parameter_get(char *fname);
+extern io_parameter_t
+io_parameter_get(char *fname);
 
 /**
  * \brief Disposes a parameter object.
@@ -49,6 +53,7 @@ extern io_parameter_t io_parameter_get(char *fname);
  *
  * \return Nothing.
  */
-extern void io_parameter_del(io_parameter_t *params);
+extern void
+io_parameter_del(io_parameter_t *params);
 
 #endif /* IO_PARAMETER_H */

@@ -5,6 +5,7 @@
 #ifndef XSTRING_H
 #define XSTRING_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -13,9 +14,11 @@
  * @brief This file provides utility functions dealing with strings.
  */
 
+
 /*--- Includes ----------------------------------------------------------*/
 #include "util_config.h"
 #include <stdio.h>
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -31,7 +34,9 @@
  *
  * \return  A pointer to the duplicated string.
  */
-extern char *xstrdup(const char *s);
+extern char *
+xstrdup(const char *s);
+
 
 /**
  * \brief  Clone of the GNU getline() function.
@@ -44,7 +49,9 @@ extern char *xstrdup(const char *s);
  * \return  Returns the number of characters read, or if an error
  *          occured, -1.
  */
-extern size_t xgetline(char **line, size_t *n, FILE *f);
+extern size_t
+xgetline(char **line, size_t *n, FILE *f);
+
 
 /**
  * \brief  This takes two strings and generates a new one that consists
@@ -56,10 +63,14 @@ extern size_t xgetline(char **line, size_t *n, FILE *f);
  * \return  Returns a new string that is equivalent to ("%s%s",s1, s2).
  *          The user must free the string if now longer needed.
  */
-extern char *xstrmerge(const char *s1, const char *s2);
+extern char *
+xstrmerge(const char *s1, const char *s2);
 
-extern char *xdirname(const char *path);
 
-extern char *xbasename(const char *path);
+extern char *
+xdirname(const char *path);
+
+extern char *
+xbasename(const char *path);
 
 #endif

@@ -9,23 +9,26 @@
  * Provides functions for reading and writing multiple Gadget files.
  */
 
-/***********************************************************************\
- *    Includes                                                         *
-\***********************************************************************/
-#include <stdbool.h>
-#include <stdint.h>
-#include <stdio.h>
 
+/***********************************************************************\
+ *    Includes                                                         * 
+\***********************************************************************/
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "io_mgadget_def.h"
 #include "io_file.h"
 #include "io_logging.h"
-#include "io_mgadget_def.h"
+
 
 /***********************************************************************\
- *    Global defines, structure definitions and typedefs               *
+ *    Global defines, structure definitions and typedefs               * 
 \***********************************************************************/
 
+
 /***********************************************************************\
- *    Prototypes of global functions                                   *
+ *    Prototypes of global functions                                   * 
 \***********************************************************************/
 
 /**
@@ -54,9 +57,12 @@
  * \return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_mgadget_t io_mgadget_open(io_logging_t log, char *fname,
-                                    io_file_swap_t swapped, io_file_mode_t mode,
-                                    uint32_t reader);
+extern io_mgadget_t
+io_mgadget_open(io_logging_t log,
+                char *fname,
+                io_file_swap_t swapped,
+                io_file_mode_t mode,
+                uint32_t reader);
 
 /**
  * \brief This will close and finalize multiple Gadget files.
@@ -68,7 +74,9 @@ extern io_mgadget_t io_mgadget_open(io_logging_t log, char *fname,
  *
  * \return Nothing.
  */
-extern void io_mgadget_close(io_logging_t log, io_mgadget_t *f);
+extern void
+io_mgadget_close(io_logging_t log,
+                 io_mgadget_t *f);
 
 /**
  * \brief Initializes opened for reading Gadget files.
@@ -78,9 +86,11 @@ extern void io_mgadget_close(io_logging_t log, io_mgadget_t *f);
  *
  * \return Nothing.
  */
-extern void io_mgadget_init(io_logging_t log, io_mgadget_t f);
+extern void
+io_mgadget_init(io_logging_t log,
+                io_mgadget_t f);
 
-/**
+/**                          
  * \brief Reads from an opened Multiple Gadget file all particle
  *        information.
  *
@@ -89,7 +99,7 @@ extern void io_mgadget_init(io_logging_t log, io_mgadget_t f);
  * pointer to beginning of the particle array, which must be large
  * enough to accomodate all particles (can be check by evaluating the
  * number of particles given in the file header).
- *
+ * 
  * The particle structure can be arbitrarily arranged, the function only
  * needs to know where within in the structure the components of
  * position and momentum and the weight are stored and how large the
@@ -101,17 +111,20 @@ extern void io_mgadget_init(io_logging_t log, io_mgadget_t f);
  * \param pskip  Number of particles to skip.
  * \param pread  Number of particles to read.
  * \param strg   The abstract description of the external storage.
- *
+ *                                 
  * \return Returns the number of particles read from the file. If this
  *         is not the number of particles given as the pread parameter,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_mgadget_readpart(io_logging_t log, io_mgadget_t f,
-                                    uint64_t pskip, uint64_t pread,
-                                    io_file_strg_struct_t strg);
+extern uint64_t
+io_mgadget_readpart(io_logging_t log,
+                    io_mgadget_t f,
+                    uint64_t pskip,
+                    uint64_t pread,
+                    io_file_strg_struct_t strg);
 
-/**
+/**                          
  * \brief Reads from an opened Multiple Gadget file all particle
  *        information without scaling them to AMIGA units.
  *
@@ -122,15 +135,18 @@ extern uint64_t io_mgadget_readpart(io_logging_t log, io_mgadget_t f,
  * \param pskip  Number of particles to skip.
  * \param pread  Number of particles to read.
  * \param strg   The abstract description of the external storage.
- *
+ *                                 
  * \return Returns the number of particles read from the file. If this
  *         is not the number of particles given as the pread parameter,
  *         something went wrong. The calling function hence should check
  *         the return value.
  */
-extern uint64_t io_mgadget_readpart_raw(io_logging_t log, io_mgadget_t f,
-                                        uint64_t pskip, uint64_t pread,
-                                        io_file_strg_struct_t strg);
+extern uint64_t
+io_mgadget_readpart_raw(io_logging_t log,
+                        io_mgadget_t f,
+                        uint64_t pskip,
+                        uint64_t pread,
+                        io_file_strg_struct_t strg);
 
 /**
  * \brief Generic get-function to retrieve things from the file header.
@@ -142,8 +158,11 @@ extern uint64_t io_mgadget_readpart_raw(io_logging_t log, io_mgadget_t f,
  *
  * \return True if the parameter could be read, false if not.
  */
-extern bool io_mgadget_get(io_logging_t log, io_mgadget_t f, io_file_get_t what,
-                           void *res);
+extern bool
+io_mgadget_get(io_logging_t log,
+               io_mgadget_t f,
+               io_file_get_t what,
+               void *res);
 
 /**
  * \brief Generic get-function to set things in the file header.
@@ -155,8 +174,11 @@ extern bool io_mgadget_get(io_logging_t log, io_mgadget_t f, io_file_get_t what,
  *
  * \return True if the parameter could be set, false if not.
  */
-extern bool io_mgadget_set(io_logging_t log, io_mgadget_t f, io_file_get_t what,
-                           void *res);
+extern bool
+io_mgadget_set(io_logging_t log,
+               io_mgadget_t f,
+               io_file_get_t what,
+               void *res);
 
 /**
  * \brief Writes the file information to the logfile.
@@ -166,7 +188,8 @@ extern bool io_mgadget_set(io_logging_t log, io_mgadget_t f, io_file_get_t what,
  *
  * \return Nothing.
  */
-extern void io_mgadget_log(io_logging_t log, io_mgadget_t f);
+extern void
+io_mgadget_log(io_logging_t log, io_mgadget_t f);
 
 /**
  * \brief Resets the position and weight scales to given values
@@ -178,7 +201,11 @@ extern void io_mgadget_log(io_logging_t log, io_mgadget_t f);
  * \param weightscale  The new scale to translate from Gadget file
  *                     to Msun.
  */
-extern void io_mgadget_resetscale(io_logging_t log, io_mgadget_t f,
-                                  double posscale, double weightscale);
+extern void
+io_mgadget_resetscale(io_logging_t log,
+                      io_mgadget_t f,
+                      double posscale,
+                      double weightscale);
+
 
 #endif /* IO_MGADGET_H */

@@ -5,6 +5,7 @@
 #ifndef IO_ARTNEW_H
 #define IO_ARTNEW_H
 
+
 /*--- Doxygen file description ------------------------------------------*/
 
 /**
@@ -15,14 +16,15 @@
  */
 
 /*--- Includes ----------------------------------------------------------*/
-#include <stdbool.h>
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 #ifdef WITH_MPI
-#include <mpi.h>
+#  include <mpi.h>
 #endif
 #include "io_file.h"
 #include "io_logging.h"
+
 
 /*--- ADT handle --------------------------------------------------------*/
 
@@ -30,6 +32,7 @@
  * @brief  Defines the handle for an ART object.
  */
 typedef struct io_artnew_struct *io_artnew_t;
+
 
 /*--- Prototypes of exported functions ----------------------------------*/
 
@@ -60,9 +63,12 @@ typedef struct io_artnew_struct *io_artnew_t;
  * @return Returns a partially initialized file object, or NULL if the
  *         file could not be opened.
  */
-extern io_artnew_t io_artnew_open(io_logging_t log, char *fname,
-                                  io_file_swap_t swapped, io_file_mode_t mode,
-                                  uint32_t reader);
+extern io_artnew_t
+io_artnew_open(io_logging_t   log,
+               char           *fname,
+               io_file_swap_t swapped,
+               io_file_mode_t mode,
+               uint32_t       reader);
 
 /**
  * @brief  Closes the io_file object and frees all associated memory.
@@ -77,20 +83,32 @@ extern io_artnew_t io_artnew_open(io_logging_t log, char *fname,
  *
  * @return  Returns nothing.
  */
-extern void io_artnew_close(io_logging_t log, io_artnew_t *f);
+extern void
+io_artnew_close(io_logging_t log,
+                io_artnew_t  *f);
 
 /**
  *
  */
-extern void io_artnew_init(io_logging_t log, io_artnew_t f);
+extern void
+io_artnew_init(io_logging_t log,
+               io_artnew_t  f);
 
-extern uint64_t io_artnew_readpart(io_logging_t log, io_artnew_t f,
-                                   uint64_t pskip, uint64_t pread,
-                                   io_file_strg_struct_t strg);
+extern uint64_t
+io_artnew_readpart(io_logging_t          log,
+                   io_artnew_t           f,
+                   uint64_t              pskip,
+                   uint64_t              pread,
+                   io_file_strg_struct_t strg);
 
-extern bool io_artnew_get(io_logging_t log, io_artnew_t f, io_file_get_t what,
-                          void *res);
+extern bool
+io_artnew_get(io_logging_t  log,
+              io_artnew_t   f,
+              io_file_get_t what,
+              void          *res);
 
-extern void io_artnew_log(io_logging_t log, io_artnew_t f);
+extern void
+io_artnew_log(io_logging_t log, io_artnew_t f);
+
 
 #endif

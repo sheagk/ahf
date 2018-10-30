@@ -9,11 +9,13 @@
  * Header file to define general things of the library.
  */
 
+
 /***********************************************************************\
- *    Defines                                                          *
+ *    Defines                                                          * 
 \***********************************************************************/
 #define IO_VERSION_MAJOR 0
 #define IO_VERSION_MINOR 1
 #define IO_VERSION_MICRO 0
+
 
 #endif /* IO_DEFS_H */
