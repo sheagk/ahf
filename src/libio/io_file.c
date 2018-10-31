@@ -90,6 +90,9 @@ io_file_typestr(io_file_type_t type)
     case IO_FILE_HDF5:
         return IO_FILE_HDF5_STR;
 
+    case IO_FILE_MHDF5:
+    	return IO_FILE_MHDF5_STR;
+
 	case IO_FILE_UNKOWN:
 		return IO_FILE_UNKOWN_STR;
 
@@ -209,6 +212,10 @@ io_file_open(io_logging_t   log,
         dummy = (io_file_t)io_hdf5_open(log, fname, swapped, mode, reader);
         break;
             
+    case IO_FILE_MHDF5:
+        dummy = (io_file_t)io_mhdf5_open(log, fname, swapped, mode, reader);
+        break;
+
 	default:
 		io_logging_fatal(log,
 		                 "File format %s not supported for %s!",
@@ -267,6 +274,10 @@ io_file_close(io_logging_t log,
     case IO_FILE_HDF5:
         io_hdf5_close(log, (io_hdf5_t *)f);
         break;
+    case IO_FILE_MHDF5:
+        io_mhdf5_close(log, (io_mhdf5_t *)f);
+        break;
+
 	case IO_FILE_EMPTY:
 #ifdef WITH_MPI
 		if ((*f)->mycomm != MPI_COMM_NULL)
@@ -331,6 +342,9 @@ io_file_init(io_logging_t log,
     case IO_FILE_HDF5:
         io_hdf5_init(log, (io_hdf5_t)f);
         break;
+    case IO_FILE_MHDF5:
+        io_mhdf5_init(log, (io_mhdf5_t)f);
+        break;        
 	default:
 		io_logging_fatal(log,
 		                 "File format %s not supported for %s!",
@@ -423,6 +437,9 @@ io_file_readpart(io_logging_t          log,
 		break;
     case IO_FILE_HDF5:
         tmp = io_hdf5_readpart(log, (io_hdf5_t)f, pskip_parallel, pread_parallel, strg);
+        break;
+    case IO_FILE_MHDF5:
+        tmp = io_mhdf5_readpart(log, (io_mhdf5_t)f, pskip_parallel, pread_parallel, strg);
         break;
 	default:
 		io_logging_fatal(log,
@@ -601,6 +618,8 @@ io_file_get(io_logging_t  log,
 
     case IO_FILE_HDF5:
         return io_hdf5_get(log, (io_hdf5_t)f, what, res);
+    case IO_FILE_MHDF5:
+        return io_mhdf5_get(log, (io_mhdf5_t)f, what, res);  
             
 	default:
 		io_logging_fatal(log,
@@ -638,6 +657,10 @@ io_file_set(io_logging_t  log,
 
     case IO_FILE_HDF5:
         return io_hdf5_set(log, (io_hdf5_t)f, what, res);
+
+
+    case IO_FILE_MHDF5:
+        return io_mhdf5_set(log, (io_mhdf5_t)f, what, res);
             
 	default:
 		io_logging_fatal(log,
@@ -693,6 +716,9 @@ io_file_log(io_logging_t log,
     case IO_FILE_HDF5:
         io_hdf5_log(log, (io_hdf5_t)f);
         break;
+    case IO_FILE_MHDF5:
+        io_mhdf5_log(log, (io_mhdf5_t)f);
+        break;   
 	default:
 		io_logging_fatal(log,
 		                 "File format %s not supported for %s!",

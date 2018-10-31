@@ -74,6 +74,8 @@
 
 #define IO_FILE_HDF5_STR "GADGET-style HDF5"
 
+#define IO_FILE_MHDF5_STR "Mutiple GADGET-style HDF5"
+
 /** Descriptive string of the Unkown file type */
 #define IO_FILE_UNKOWN_STR "Unkown (trying to autoguess)"
 
@@ -132,6 +134,8 @@ typedef enum {
     IO_FILE_UNKOWN = 100,
     /** For GADGET-format HDF5 files*/
     IO_FILE_HDF5 = 110,
+    /** For GADGET-format HDF5 files*/
+    IO_FILE_MHDF5 = 111,
     /** For an empty file handler */
     IO_FILE_EMPTY = 9999
 } io_file_type_t;

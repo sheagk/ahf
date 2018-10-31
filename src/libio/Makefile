@@ -44,6 +44,7 @@ OBJS = io_logging.o \
        io_parameter.o \
        io_artnew.o \
        io_hdf5.o \
+       io_mhdf5.o \
        art.o \
        artHeader.o \
        endian.o \
@@ -91,7 +92,8 @@ io_file.o: io_file.h io_file_aux.h \
            io_tipsy.h io_tipsy_def.h \
            io_tipsy_header.h io_tipsy_header_def.h \
            io_hdf5.h \
-	   io_logging.h \
+           io_mhdf5.h \
+       	   io_logging.h \
            io_file.c
 	$(CC) $(CFLAGS) -c -o io_file.o io_file.c
 
@@ -210,6 +212,8 @@ io_tipsy_header.o: io_tipsy_header.h \
 io_hdf5.o: io_hdf5.h io_hdf5.c io_gadget_def.h 
 	$(CC) $(CFLAGS) -c -o io_hdf5.o io_hdf5.c
 
+io_mhdf5.o: io_hdf5.h io_hdf5.c io_gadget_def.h io_mhdf5.h io_mhdf5.c 
+  $(CC) $(CFLAGS) -c -o io_mhdf5.o io_mhdf5.c
 
 io_read_fortran.o:		io_read_fortran.c\
 											io_util.h
